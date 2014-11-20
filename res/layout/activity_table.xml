@@ -23,6 +23,14 @@
     <Spinner
         android:id="@+id/spDiners"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:prompt="@string/diner" />
+
+    <Button
+        android:id="@+id/btnTakeOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/take_order"
+        android:onClick="launchOrderActivity" />
 
 </LinearLayout>

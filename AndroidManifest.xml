@@ -26,6 +26,10 @@
             android:name=".TableActivity"
             android:label="@string/title_activity_table" >
         </activity>
+        <activity
+            android:name=".OrderActivity"
+            android:label="@string/title_activity_order" >
+        </activity>
     </application>
 
 </manifest>

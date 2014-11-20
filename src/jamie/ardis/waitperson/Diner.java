@@ -5,17 +5,22 @@ package jamie.ardis.waitperson;
 public class Diner {
 
 	private Order order;
-	private String dinerNum = "1"; //initialised for testing
+	private int dinerNum; //initialised for testing
 	
-	public String getDinerNum() {
+	public Diner(int dinerNum) 
+	{
+		setDinerNum(dinerNum);
+	} // constructor
+	
+	public int getDinerNum() {
 		return dinerNum;
 	}
 
-	public void setDinerNum(String dinerNum) {
+	public void setDinerNum(int dinerNum) {
 		this.dinerNum = dinerNum;
 	}
 
-	public Diner() {} // constructor
+	
 
 	public Order getOrder() {
 		return order;
@@ -23,6 +28,11 @@ public class Diner {
 
 	public void setOrder(Order order) {
 		this.order = order;
+	}
+
+	@Override
+	public String toString() {
+		return "Diner " + dinerNum ;
 	}
 	
 	

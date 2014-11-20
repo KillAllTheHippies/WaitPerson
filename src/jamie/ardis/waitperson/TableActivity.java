@@ -3,6 +3,7 @@ package jamie.ardis.waitperson;
 import java.util.ArrayList;
 
 import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +18,8 @@ public class TableActivity extends ActionBarActivity {
 
 	private Spinner spDiners;
 	private Button btnAddDiner;
+	ArrayList<Diner> diners = new ArrayList<Diner>();
+	private int dinerNum = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,21 +31,45 @@ public class TableActivity extends ActionBarActivity {
 		addListenerOnSpinnerItemSelection();
 
 	}
+	
+	public void launchOrderActivity(View v)
+    {
+    	Intent intent = new Intent(this, OrderActivity.class);
+    	//intent.putExtra("table", table.getTableNum());
+    	startActivity(intent);
+    }
 
-	public void addDinerToSpinner() {
+	public ArrayList<Diner> getDiners() {
+		return diners;
+	}
+
+	public void setDiners(ArrayList<Diner> diners) {
+		this.diners = diners;
+	}
+
+	
+	public int getDinerNum() {
+		return dinerNum;
+	}
+
+	public void setDinerNum(int dinerNum) {
+		this.dinerNum = dinerNum;
+	}
+
+	public void addDinerToSpinner(ArrayList<Diner> diners, int dinerNum) {
 
 		spDiners = (Spinner) findViewById(R.id.spDiners);
-		ArrayList<Diner> diners = new ArrayList<Diner>();
-		Diner diner = new Diner();
-		Diner diner2 = new Diner();
-
+		
+		Diner diner = new Diner(dinerNum);
+		dinerNum++;
+		setDinerNum(dinerNum);
 		diners.add(diner);
-		diners.add(diner2);
+		
 
 		DinersAdapter adapter = new DinersAdapter(this, diners);
 
-		// ArrayAdapter<Diner> dataAdapter = new ArrayAdapter<Diner>(this,
-		// android.R.layout.simple_spinner_item, diners);
+//		 ArrayAdapter<Diner> adapter = new ArrayAdapter<Diner>(this,
+//		 android.R.layout.simple_spinner_item, diners);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 		spDiners.setAdapter(adapter);
@@ -56,7 +83,7 @@ public class TableActivity extends ActionBarActivity {
 	// get the selected dropdown list value
 	public void addListenerOnButton() {
 
-		spDiners = (Spinner) findViewById(R.id.spDiners);
+		//spDiners = (Spinner) findViewById(R.id.spDiners);
 		btnAddDiner = (Button) findViewById(R.id.btnAddDiner);
 
 		btnAddDiner.setOnClickListener(new OnClickListener() {
@@ -64,12 +91,12 @@ public class TableActivity extends ActionBarActivity {
 			@Override
 			public void onClick(View v) {
 
-				addDinerToSpinner();
-				// Toast.makeText(
-				// TableActivity.this,
-				// "OnClickListener : " + "\nSpinner 2 : "
-				// + String.valueOf(spDiners.getSelectedItem()),
-				// Toast.LENGTH_SHORT).show();
+				addDinerToSpinner(diners, dinerNum);
+				 Toast.makeText(
+				 TableActivity.this,
+				 "OnClickListener : " + "\nSpinner 2 : "
+				 + String.valueOf(spDiners.getSelectedItem()),
+				 Toast.LENGTH_SHORT).show();
 			}
 
 		});
