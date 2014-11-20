@@ -1,18 +1,50 @@
 package jamie.ardis.waitperson;
 
+
+
+import java.util.ArrayList;
+
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 
 public class MainActivity extends ActionBarActivity {
 
+	ArrayList<Table> tables;
+	ArrayAdapter<Table> adapter;
+	private ListView lv;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
+        
+        lv = (ListView) findViewById(R.id.lvTables);
+        ArrayList<Table> tArray = new ArrayList<Table>();
+        ArrayList<String> tabList = new ArrayList<String>();
+        
+        //create some tables and feic them into the arraylist
+        //also populate the table numbers list
+        for (int i = 0; i<5; i++)
+        {
+        	Table t = new Table(i);
+        	tArray.add(t);
+        	tabList.add("Table: " + i);
+        }
+        	
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                this, 
+                android.R.layout.simple_list_item_1,
+                tabList );
+
+        lv.setAdapter(arrayAdapter); 
+   }
+        
+    
 
 
     @Override

@@ -3,31 +3,23 @@ package jamie.ardis.waitperson;
 import java.util.ArrayList;
 
 public class Table {
-	private int tableID, tableSize;
+	private int tableNum;
 	ArrayList<Diner> diners = new ArrayList<Diner>();
 
 	// Constructor
-	public Table(int tableID, int tableSize) {
-		super();
-		setTableID(tableID);
-		setTableSize(tableSize);
+	public Table(int tableNum) {
+		setTableNum(tableNum);
+		
 	}
 
-	public int getTableID() {
-		return tableID;
+	public int getTableNum() {
+		return tableNum;
 	}
 
-	public void setTableID(int tableID) {
-		this.tableID = tableID;
+	public void setTableNum(int tableID) {
+		this.tableNum = tableID;
 	}
 
-	public int getTableSize() {
-		return tableSize;
-	}
-
-	public void setTableSize(int tableSize) {
-		this.tableSize = tableSize;
-	}
 
 	public ArrayList<Diner> getDiners() {
 		return diners;
