@@ -7,5 +7,6 @@
     <string name="select_table">Select Table</string>
     <string name="settings">Settings</string>
     <string name="title_activity_table">TableActivity</string>
+    <string name="add_diner">Add Diner</string>
 
 </resources>
