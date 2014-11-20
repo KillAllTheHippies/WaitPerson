@@ -3,21 +3,21 @@ package jamie.ardis.waitperson;
 import java.util.ArrayList;
 
 public class Table {
-	private int tableNum;
+	private String tableNum;
 	ArrayList<Diner> diners = new ArrayList<Diner>();
 
 	// Constructor
-	public Table(int tableNum) {
+	public Table(String tableNum) {
 		setTableNum(tableNum);
 		
 	}
 
-	public int getTableNum() {
+	public String getTableNum() {
 		return tableNum;
 	}
 
-	public void setTableNum(int tableID) {
-		this.tableNum = tableID;
+	public void setTableNum(String tableNum) {
+		this.tableNum = tableNum;
 	}
 
 
