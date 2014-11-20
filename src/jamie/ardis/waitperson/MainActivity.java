@@ -7,6 +7,7 @@ package jamie.ardis.waitperson;
 import java.util.ArrayList;
 
 import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +20,7 @@ public class MainActivity extends ActionBarActivity {
 
 	ArrayList<Table> tables;
 	ArrayAdapter<Table> adapter;
+	Table table;
 	private ListView lv;
 
 	@Override
@@ -44,13 +46,23 @@ public class MainActivity extends ActionBarActivity {
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
 
-//				Object o = lv.getItemAtPosition(position);
-//				Table t = (Table) o;
+				Object o = lv.getItemAtPosition(position);
+				Table table = (Table) o;
+				launchTableEdit(table);
+				
+				
 
 			}
 
 		});
 	}
+	
+	public void launchTableEdit(Table table)
+    {
+    	Intent intent = new Intent(this, TableActivity.class);
+    	intent.putExtra("table", table.getTableNum());
+    	startActivity(intent);
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -70,4 +82,5 @@ public class MainActivity extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
 }

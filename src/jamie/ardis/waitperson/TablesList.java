@@ -13,10 +13,10 @@ public class TablesList {
 		lookup = new HashMap<String, Table>();
 		//TODO hook into SqlLite database instead
 		
-		// create some tables and feic them into the arraylist
-				// also populate the table numbers list
+		// create some tables and feck them into the arraylist
+				
 				for (int i = 0; i < 5; i++) {
-					Table t = new Table("" + i);
+					Table t = new Table("" + (i+1));
 					tables.add(t);
 					
 				}
@@ -37,7 +37,7 @@ public class TablesList {
 	}
 	
 	public Table getTable(String tableNum){
-		//get a User object from the dictionary, dictionary key = name
+		//get a User object from the dictionary, dictionary key = tableNUm
 		Table t = lookup.get(tableNum);
 		return t;
 	}
