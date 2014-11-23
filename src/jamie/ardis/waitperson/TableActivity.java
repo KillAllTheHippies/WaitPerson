@@ -19,8 +19,10 @@ public class TableActivity extends ActionBarActivity {
 
 	private Spinner spDiners;
 	private Button btnTakeOrder;
+	private Button btnAddDiner;
 	ArrayList<Diner> diners = new ArrayList<Diner>();
 	private int dinerNum = 1;
+	private Order order;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -99,9 +101,9 @@ public class TableActivity extends ActionBarActivity {
 	public void addListenerOnBtnAddDiner() {
 
 		
-		btnTakeOrder = (Button) findViewById(R.id.btnAddDiner);
+		btnAddDiner = (Button) findViewById(R.id.btnAddDiner);
 		
-		btnTakeOrder.setOnClickListener(new OnClickListener() {
+		btnAddDiner.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -129,13 +131,35 @@ public class TableActivity extends ActionBarActivity {
 			public void onClick(View v) {
 				
 				Diner d =(Diner) spDiners.getSelectedItem();
-				d.takeOrder();
+				takeOrder();
 				
 			}
 
 		});
 	}
 
+	public void takeOrder()
+	{
+		Intent intent = new Intent(this, OrderActivity.class);
+		
+		this.startActivityForResult(intent,666);
+		
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    super.onActivityResult(requestCode, requestCode, data);
+		// Check which request we're responding to
+	    if (requestCode == 666) {
+	        // Make sure the request was successful
+	        if (resultCode == RESULT_OK) {
+	            
+	        	order = (Order) data.getSerializableExtra("order");
+	           
+	        }
+	    }
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

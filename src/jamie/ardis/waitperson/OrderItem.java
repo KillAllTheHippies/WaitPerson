@@ -1,6 +1,8 @@
 package jamie.ardis.waitperson;
 
-public class OrderItem {
+import java.io.Serializable;
+
+public class OrderItem implements Serializable{
 
 	String extraInfo;
 	String name;
@@ -9,7 +11,7 @@ public class OrderItem {
 	
 	
 	public OrderItem(String name, double price) {
-		super();
+		
 		setName(name);
 		setPrice(price);
 	}
