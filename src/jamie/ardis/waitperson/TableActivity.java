@@ -22,7 +22,7 @@ public class TableActivity extends ActionBarActivity {
 	private Button btnAddDiner;
 	ArrayList<Diner> diners = new ArrayList<Diner>();
 	private int dinerNum = 1;
-	private Order order;
+	private Order order = new Order();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -84,9 +84,6 @@ public class TableActivity extends ActionBarActivity {
 		
 
 		DinersAdapter adapter = new DinersAdapter(this, diners);
-
-//		 ArrayAdapter<Diner> adapter = new ArrayAdapter<Diner>(this,
-//		 android.R.layout.simple_spinner_item, diners);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 		spDiners.setAdapter(adapter);
@@ -130,7 +127,7 @@ public class TableActivity extends ActionBarActivity {
 			@Override
 			public void onClick(View v) {
 				
-				Diner d =(Diner) spDiners.getSelectedItem();
+				//Diner d =(Diner) spDiners.getSelectedItem();
 				takeOrder();
 				
 			}
@@ -141,6 +138,7 @@ public class TableActivity extends ActionBarActivity {
 	public void takeOrder()
 	{
 		Intent intent = new Intent(this, OrderActivity.class);
+		intent.putExtra("order", order);
 		
 		this.startActivityForResult(intent,666);
 		
@@ -155,7 +153,8 @@ public class TableActivity extends ActionBarActivity {
 	        if (resultCode == RESULT_OK) {
 	            
 	        	order = (Order) data.getSerializableExtra("order");
-	           
+	        	Diner d =(Diner) spDiners.getSelectedItem();
+	        	d.setOrder(order);
 	        }
 	    }
 	}

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class OrderItem implements Serializable{
 
+	
 	String extraInfo;
 	String name;
 	int quantity;
@@ -39,6 +40,10 @@ public class OrderItem implements Serializable{
 	}
 	public void setPrice(double price) {
 		this.price = price;
+	}
+	@Override
+	public String toString() {
+		return "" + name + ", €" + price + "]";
 	}
 	
 	

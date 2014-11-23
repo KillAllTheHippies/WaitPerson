@@ -2,15 +2,15 @@ package jamie.ardis.waitperson;
 
 import java.util.ArrayList;
 
-public class Menu {
+public class MenuItems {
 
 	ArrayList<OrderItem> mains = new ArrayList<OrderItem>();
 	ArrayList<OrderItem> drinks = new ArrayList<OrderItem>();
 	ArrayList<OrderItem> starters = new ArrayList<OrderItem>();
 	ArrayList<OrderItem> deserts = new ArrayList<OrderItem>();
 	
-	public Menu() {
-		super();
+	public MenuItems() {
+		
 		mains.add(new OrderItem("Chicken", 10.99));
 		mains.add(new OrderItem("Pork", 11.99));
 		mains.add(new OrderItem("Lamb", 12.99));
