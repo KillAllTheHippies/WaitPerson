@@ -36,9 +36,10 @@
         android:text="Button" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/btnSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/settings" />
+        android:text="@string/settings"
+        android:onClick="launchSettingsActivity" />
 
 </LinearLayout>

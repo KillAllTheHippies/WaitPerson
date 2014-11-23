@@ -3,6 +3,12 @@ package jamie.ardis.waitperson;
 import java.util.ArrayList;
 
 public class Table {
+	
+	@Override
+	public String toString() {
+		return "Table [tableNum=" + tableNum + "]";
+	}
+
 	private String tableNum;
 	ArrayList<Diner> diners = new ArrayList<Diner>();
 

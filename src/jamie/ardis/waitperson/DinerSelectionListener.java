@@ -9,6 +9,8 @@ public class DinerSelectionListener implements OnItemSelectedListener {
  
   public void onItemSelected(AdapterView<?> parent, View view, int pos,long id)
   {
+	  
+	  
 	Toast.makeText(parent.getContext(), 
 		"DinerSelectionListener : " + parent.getItemAtPosition(pos).toString(),
 		Toast.LENGTH_SHORT).show();

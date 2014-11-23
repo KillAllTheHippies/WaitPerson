@@ -12,12 +12,13 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class TableActivity extends ActionBarActivity {
 
 	private Spinner spDiners;
-	private Button btnAddDiner;
+	private Button btnTakeOrder;
 	ArrayList<Diner> diners = new ArrayList<Diner>();
 	private int dinerNum = 1;
 
@@ -25,10 +26,24 @@ public class TableActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_table);
-
-		// addItemsOnSpinner2();
-		addListenerOnButton();
+		TextView tvTable = (TextView) findViewById(R.id.tvTable);
+		
+		addListenerOnBtnAddDiner();
 		addListenerOnSpinnerItemSelection();
+		addListenerOnBtnTakeOrder();
+		String tableNum;
+		if (savedInstanceState == null) {
+		    Bundle extras = getIntent().getExtras();
+		    if(extras == null) {
+		        tableNum= null;
+		    } else {
+		        tableNum= extras.getString("table");
+		    }
+		} else {
+		    tableNum= (String) savedInstanceState.getSerializable("table");
+		}
+		
+		tvTable.setText("Table "+tableNum);
 
 	}
 	
@@ -60,7 +75,7 @@ public class TableActivity extends ActionBarActivity {
 
 		spDiners = (Spinner) findViewById(R.id.spDiners);
 		
-		Diner diner = new Diner(dinerNum);
+		Diner diner = new Diner(dinerNum, getApplicationContext());
 		dinerNum++;
 		setDinerNum(dinerNum);
 		diners.add(diner);
@@ -80,23 +95,42 @@ public class TableActivity extends ActionBarActivity {
 		spDiners.setOnItemSelectedListener(new DinerSelectionListener());
 	}
 
-	// get the selected dropdown list value
-	public void addListenerOnButton() {
+	
+	public void addListenerOnBtnAddDiner() {
 
-		//spDiners = (Spinner) findViewById(R.id.spDiners);
-		btnAddDiner = (Button) findViewById(R.id.btnAddDiner);
-
-		btnAddDiner.setOnClickListener(new OnClickListener() {
+		
+		btnTakeOrder = (Button) findViewById(R.id.btnAddDiner);
+		
+		btnTakeOrder.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 
 				addDinerToSpinner(diners, dinerNum);
-				 Toast.makeText(
-				 TableActivity.this,
-				 "OnClickListener : " + "\nSpinner 2 : "
-				 + String.valueOf(spDiners.getSelectedItem()),
-				 Toast.LENGTH_SHORT).show();
+				
+				
+//				 Toast.makeText(
+//				 TableActivity.this,
+//				 "OnClickListener : " + "\nSpinner 2 : "
+//				 + String.valueOf(spDiners.getSelectedItem()),
+//				 Toast.LENGTH_SHORT).show();
+			}
+
+		});
+	}
+	
+	public void addListenerOnBtnTakeOrder() {
+
+		btnTakeOrder = (Button) findViewById(R.id.btnTakeOrder);
+		
+		btnTakeOrder.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				
+				Diner d =(Diner) spDiners.getSelectedItem();
+				d.takeOrder();
+				
 			}
 
 		});

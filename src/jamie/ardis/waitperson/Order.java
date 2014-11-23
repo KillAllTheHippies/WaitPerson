@@ -1,10 +1,22 @@
 package jamie.ardis.waitperson;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Order {
+public class Order implements Serializable{
 
 	ArrayList<OrderItem> items = new ArrayList<OrderItem>();
+	
+	
+
+	@Override
+	public String toString() {
+		return "Order [items=" + items + "]";
+	}
+
+	public Order() {
+		
+	}
 
 	public ArrayList<OrderItem> getItems() {
 		return items;

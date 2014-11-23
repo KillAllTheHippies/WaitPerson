@@ -63,6 +63,13 @@ public class MainActivity extends ActionBarActivity {
     	intent.putExtra("table", table.getTableNum());
     	startActivity(intent);
     }
+	
+	public void launchSettingsActivity(View v)
+    {
+    	Intent intent = new Intent(this, SettingsActivity.class);
+    	//intent.putExtra("table", table.getTableNum());
+    	startActivity(intent);
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

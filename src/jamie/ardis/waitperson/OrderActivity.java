@@ -1,16 +1,37 @@
 package jamie.ardis.waitperson;
 
 import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class OrderActivity extends ActionBarActivity {
+	
+	Order order;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_order);
+		TextView tvDinersDisplay = (TextView) findViewById(R.id.tvDinerDisplay);
+		
+		
+		if (savedInstanceState == null) {
+		    Bundle bundle = getIntent().getExtras();
+		    if(bundle == null) {
+		        order= null;
+		    } else {
+		    	Intent intent = getIntent();
+		        order= (Order) intent.getSerializableExtra("order");
+		    }
+		} else {
+		    order= (Order) savedInstanceState.getSerializable("order");
+		}
+		
+		//tvDinersDisplay.setText(order.toString()); // crashes herez
+
 	}
 
 	@Override

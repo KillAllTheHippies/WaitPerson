@@ -11,5 +11,7 @@
     <string name="diner">Diner</string>
     <string name="take_order">Take Order</string>
     <string name="title_activity_order">OrderActivity</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="add_order_item">Add Order Item</string>
 
 </resources>
