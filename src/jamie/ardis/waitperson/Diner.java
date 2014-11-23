@@ -12,14 +12,14 @@ public class Diner implements Serializable{
 
 	private Order order = new Order();
 	private int dinerNum; 
-	private Context context;
 	
 	
 	
-	public Diner(int dinerNum, Context context) 
+	
+	public Diner(int dinerNum) 
 	{
 		setDinerNum(dinerNum);
-		this.context = context;
+		
 	} // constructor
 	
 	public int getDinerNum() {
@@ -45,21 +45,7 @@ public class Diner implements Serializable{
 		return "Diner " + dinerNum ;
 	}
 	
-	@SuppressWarnings("static-access")
-	public void takeOrder() // Launch an intent to select order items to add to order
-	{
-		Intent intent = new Intent(context, OrderActivity.class);
-		//Bundle bundle = new Bundle();
-		
-		// add an item to the order;
-		//order.addItem(new OrderItem("Coffee",2.50));
-		
-		//bundle.putSerializable("order", order); // add the (empty) order to a bundle
-    	//intent.putExtra("orderBundle", bundle); // Add the empty order to the next activity (to be populated with an order)
-		intent.addFlags(intent.FLAG_ACTIVITY_NEW_TASK); // add this flag for some reason, Computers! *throws hands in air*
-    	context.startActivity(intent);
-    	
-	}
+	
 		
 	
 	

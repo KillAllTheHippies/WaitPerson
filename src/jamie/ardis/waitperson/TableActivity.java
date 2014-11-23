@@ -3,6 +3,7 @@ package jamie.ardis.waitperson;
 import java.util.ArrayList;
 
 import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -23,6 +24,7 @@ public class TableActivity extends ActionBarActivity {
 	ArrayList<Diner> diners = new ArrayList<Diner>();
 	private int dinerNum = 1;
 	private Order order = new Order();
+	private Table table;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,15 +39,17 @@ public class TableActivity extends ActionBarActivity {
 		if (savedInstanceState == null) {
 			Bundle extras = getIntent().getExtras();
 			if (extras == null) {
-				tableNum = null;
+				table = null;
 			} else {
-				tableNum = extras.getString("table");
+				table = (Table) extras.getSerializable("table");
 			}
 		} else {
-			tableNum = (String) savedInstanceState.getSerializable("table");
+			table = (Table) savedInstanceState.getSerializable("table");
 		}
 
-		tvTable.setText("Table " + tableNum);
+		tvTable.setText("Table " + table.getTableNum());
+		
+		populateDinersToSpinner(table.getDiners());
 
 	}
 
@@ -75,11 +79,19 @@ public class TableActivity extends ActionBarActivity {
 
 		spDiners = (Spinner) findViewById(R.id.spDiners);
 
-		Diner diner = new Diner(dinerNum, getApplicationContext());
+		Diner diner = new Diner(dinerNum);
 		dinerNum++;
 		setDinerNum(dinerNum);
 		diners.add(diner);
 
+		DinersAdapter adapter = new DinersAdapter(this, diners);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+		spDiners.setAdapter(adapter);
+	}
+	public void populateDinersToSpinner(ArrayList<Diner> diners) {
+
+		spDiners = (Spinner) findViewById(R.id.spDiners);
 		DinersAdapter adapter = new DinersAdapter(this, diners);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -102,11 +114,6 @@ public class TableActivity extends ActionBarActivity {
 
 				addDinerToSpinner(diners, dinerNum);
 
-				// Toast.makeText(
-				// TableActivity.this,
-				// "OnClickListener : " + "\nSpinner 2 : "
-				// + String.valueOf(spDiners.getSelectedItem()),
-				// Toast.LENGTH_SHORT).show();
 			}
 
 		});
@@ -151,6 +158,23 @@ public class TableActivity extends ActionBarActivity {
 				d.setOrder(order);
 			}
 		}
+	}
+	
+	public void returnInfo(View v)
+	{
+		//test code
+//		order.addItem(new OrderItem("Coffee", 2.50));
+//		order.addItem(new OrderItem("Cake", 2.99));
+//		order.addItem(new OrderItem("Pigs Head", 15.99));
+		
+		Intent returnIntent = new Intent();
+		returnIntent.putExtra("diners", diners);
+		table.setDiners(diners);
+		returnIntent.putExtra("table", table);
+		
+		setResult(Activity.RESULT_OK, returnIntent);
+		finish();
+		
 	}
 
 	@Override

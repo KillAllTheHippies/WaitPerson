@@ -1,12 +1,13 @@
 package jamie.ardis.waitperson;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Table {
+public class Table implements Serializable{
 	
 	@Override
 	public String toString() {
-		return "Table [tableNum=" + tableNum + "]";
+		return "Table " + tableNum;
 	}
 
 	private String tableNum;

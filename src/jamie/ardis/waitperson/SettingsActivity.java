@@ -24,7 +24,7 @@ public class SettingsActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_settings);
 		TextView tvTest = (TextView) findViewById(R.id.tvTest);
 
-		Diner d = new Diner(1, getApplicationContext());
+		Diner d = new Diner(1);
 		diners.add(d);
 		writeDiners(diners);
 		ArrayList<Diner> diners1 = readDiners();

@@ -21,6 +21,8 @@ public class MainActivity extends ActionBarActivity {
 	ArrayList<Table> tables;
 	ArrayAdapter<Table> adapter;
 	Table table;
+	Table selectedTable;
+	ArrayList<Diner> diners;
 	private ListView lv;
 
 	@Override
@@ -48,6 +50,7 @@ public class MainActivity extends ActionBarActivity {
 
 				Object o = lv.getItemAtPosition(position);
 				Table table = (Table) o;
+				selectedTable = table;
 				launchTableEdit(table);
 				
 				
@@ -60,8 +63,9 @@ public class MainActivity extends ActionBarActivity {
 	public void launchTableEdit(Table table)
     {
     	Intent intent = new Intent(this, TableActivity.class);
-    	intent.putExtra("table", table.getTableNum());
-    	startActivity(intent);
+    	intent.putExtra("table", table);
+    	startActivityForResult(intent,777);
+    	
     }
 	
 	public void launchSettingsActivity(View v)
@@ -70,6 +74,22 @@ public class MainActivity extends ActionBarActivity {
     	//intent.putExtra("table", table.getTableNum());
     	startActivity(intent);
     }
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, requestCode, data);
+		// Check which request we're responding to
+		if (requestCode == 777) {
+			// Make sure the request was successful
+			if (resultCode == RESULT_OK) {
+
+				diners = (ArrayList<Diner>) data.getSerializableExtra("diners");
+				Table t = (Table) data.getSerializableExtra("table");
+				t.setDiners(diners);
+				selectedTable = t;
+				
+			}
+		}
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

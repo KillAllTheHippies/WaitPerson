@@ -246,7 +246,7 @@ int id action_context_bar 0x7f05001d
 int id action_menu_divider 0x7f050016
 int id action_menu_presenter 0x7f050017
 int id action_mode_close_button 0x7f050024
-int id action_settings 0x7f050054
+int id action_settings 0x7f050055
 int id activity_chooser_view_content 0x7f050025
 int id always 0x7f05000b
 int id beginning 0x7f050011
@@ -256,6 +256,7 @@ int id btnAddDrink 0x7f050048
 int id btnAddMain 0x7f050044
 int id btnAddOrderItem 0x7f05004c
 int id btnAddStarter 0x7f050042
+int id btnBack 0x7f050051
 int id btnFinalOrder 0x7f050049
 int id btnSettings 0x7f05003f
 int id btnTakeOrder 0x7f050050
@@ -264,7 +265,7 @@ int id checkbox 0x7f05002d
 int id collapseActionView 0x7f05000d
 int id default_activity_button 0x7f050028
 int id dialog 0x7f05000e
-int id dinerNum 0x7f050051
+int id dinerNum 0x7f050052
 int id disableHome 0x7f050008
 int id dropdown 0x7f05000f
 int id edit_query 0x7f050030
@@ -309,12 +310,12 @@ int id spStarters 0x7f050041
 int id split_action_bar 0x7f05001e
 int id submit_area 0x7f050039
 int id tabMode 0x7f050002
-int id tableNum 0x7f050053
+int id tableNum 0x7f050054
 int id textView1 0x7f05003c
 int id title 0x7f05002b
 int id top_action_bar 0x7f050020
 int id tvDinerDisplay 0x7f050040
-int id tvOrder 0x7f050052
+int id tvOrder 0x7f050053
 int id tvTable 0x7f05004d
 int id tvTest 0x7f05004b
 int id up 0x7f050021
@@ -375,6 +376,7 @@ int string add 0x7f0a0019
 int string add_diner 0x7f0a0013
 int string add_order_item 0x7f0a0018
 int string app_name 0x7f0a000d
+int string back 0x7f0a001b
 int string diner 0x7f0a0014
 int string finalise_order 0x7f0a001a
 int string hello_world 0x7f0a000e
