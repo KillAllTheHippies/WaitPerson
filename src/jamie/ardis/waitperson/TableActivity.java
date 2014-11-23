@@ -29,32 +29,31 @@ public class TableActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_table);
 		TextView tvTable = (TextView) findViewById(R.id.tvTable);
-		
+
 		addListenerOnBtnAddDiner();
 		addListenerOnSpinnerItemSelection();
 		addListenerOnBtnTakeOrder();
 		String tableNum;
 		if (savedInstanceState == null) {
-		    Bundle extras = getIntent().getExtras();
-		    if(extras == null) {
-		        tableNum= null;
-		    } else {
-		        tableNum= extras.getString("table");
-		    }
+			Bundle extras = getIntent().getExtras();
+			if (extras == null) {
+				tableNum = null;
+			} else {
+				tableNum = extras.getString("table");
+			}
 		} else {
-		    tableNum= (String) savedInstanceState.getSerializable("table");
+			tableNum = (String) savedInstanceState.getSerializable("table");
 		}
-		
-		tvTable.setText("Table "+tableNum);
+
+		tvTable.setText("Table " + tableNum);
 
 	}
-	
-	public void launchOrderActivity(View v)
-    {
-    	Intent intent = new Intent(this, OrderActivity.class);
-    	//intent.putExtra("table", table.getTableNum());
-    	startActivity(intent);
-    }
+
+	public void launchOrderActivity(View v) {
+		Intent intent = new Intent(this, OrderActivity.class);
+		// intent.putExtra("table", table.getTableNum());
+		startActivity(intent);
+	}
 
 	public ArrayList<Diner> getDiners() {
 		return diners;
@@ -64,7 +63,6 @@ public class TableActivity extends ActionBarActivity {
 		this.diners = diners;
 	}
 
-	
 	public int getDinerNum() {
 		return dinerNum;
 	}
@@ -76,12 +74,11 @@ public class TableActivity extends ActionBarActivity {
 	public void addDinerToSpinner(ArrayList<Diner> diners, int dinerNum) {
 
 		spDiners = (Spinner) findViewById(R.id.spDiners);
-		
+
 		Diner diner = new Diner(dinerNum, getApplicationContext());
 		dinerNum++;
 		setDinerNum(dinerNum);
 		diners.add(diner);
-		
 
 		DinersAdapter adapter = new DinersAdapter(this, diners);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -94,71 +91,68 @@ public class TableActivity extends ActionBarActivity {
 		spDiners.setOnItemSelectedListener(new DinerSelectionListener());
 	}
 
-	
 	public void addListenerOnBtnAddDiner() {
 
-		
 		btnAddDiner = (Button) findViewById(R.id.btnAddDiner);
-		
+
 		btnAddDiner.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 
 				addDinerToSpinner(diners, dinerNum);
-				
-				
-//				 Toast.makeText(
-//				 TableActivity.this,
-//				 "OnClickListener : " + "\nSpinner 2 : "
-//				 + String.valueOf(spDiners.getSelectedItem()),
-//				 Toast.LENGTH_SHORT).show();
+
+				// Toast.makeText(
+				// TableActivity.this,
+				// "OnClickListener : " + "\nSpinner 2 : "
+				// + String.valueOf(spDiners.getSelectedItem()),
+				// Toast.LENGTH_SHORT).show();
 			}
 
 		});
 	}
-	
+
 	public void addListenerOnBtnTakeOrder() {
 
 		btnTakeOrder = (Button) findViewById(R.id.btnTakeOrder);
-		
+
 		btnTakeOrder.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				
-				//Diner d =(Diner) spDiners.getSelectedItem();
+
+				// Diner d =(Diner) spDiners.getSelectedItem();
 				takeOrder();
-				
+
 			}
 
 		});
 	}
 
-	public void takeOrder()
-	{
+	public void takeOrder() {
 		Intent intent = new Intent(this, OrderActivity.class);
-		intent.putExtra("order", order);
-		
-		this.startActivityForResult(intent,666);
-		
+		Diner d =(Diner) spDiners.getSelectedItem();
+		intent.putExtra("order", d.getOrder());
+
+		this.startActivityForResult(intent, 666);
+
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-	    super.onActivityResult(requestCode, requestCode, data);
+		super.onActivityResult(requestCode, requestCode, data);
 		// Check which request we're responding to
-	    if (requestCode == 666) {
-	        // Make sure the request was successful
-	        if (resultCode == RESULT_OK) {
-	            
-	        	order = (Order) data.getSerializableExtra("order");
-	        	Diner d =(Diner) spDiners.getSelectedItem();
-	        	d.setOrder(order);
-	        }
-	    }
+		if (requestCode == 666) {
+			// Make sure the request was successful
+			if (resultCode == RESULT_OK) {
+
+				order = (Order) data.getSerializableExtra("order");
+				Diner d = (Diner) spDiners.getSelectedItem();
+				d.setOrder(order);
+			}
+		}
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
