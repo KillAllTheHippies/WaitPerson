@@ -18,12 +18,14 @@ import android.widget.ListView;
 
 public class MainActivity extends ActionBarActivity {
 
-	ArrayList<Table> tables;
+	ArrayList<Table> tables = new ArrayList<Table>();
 	ArrayAdapter<Table> adapter;
-	Table table;
+	//Table table;
 	Table selectedTable;
 	ArrayList<Diner> diners;
 	private ListView lv;
+	private int tableIndex;
+	//TablesList list = new TablesList();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +33,14 @@ public class MainActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_main);
 
 		lv = (ListView) findViewById(R.id.lvTables);
-		TablesList list = new TablesList();
-		tables = list.getTables();
+		
+		for (int i = 0; i < 5; i++) {
+			Table t = new Table("" + (i+1));
+			tables.add(t);
+			
+		}
+		
+		
 
 		TablesAdapter adapter = new TablesAdapter(this, tables);
 
@@ -48,10 +56,10 @@ public class MainActivity extends ActionBarActivity {
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
 
-				Object o = lv.getItemAtPosition(position);
-				Table table = (Table) o;
-				selectedTable = table;
-				launchTableEdit(table);
+				selectedTable = (Table) lv.getItemAtPosition(position);
+				tableIndex = position;
+			
+				launchTableEdit((Table)lv.getItemAtPosition(position));
 				
 				
 
@@ -60,19 +68,21 @@ public class MainActivity extends ActionBarActivity {
 		});
 	}
 	
-	public void launchTableEdit(Table table)
-    {
-    	Intent intent = new Intent(this, TableActivity.class);
-    	intent.putExtra("table", table);
-    	startActivityForResult(intent,777);
-    	
-    }
 	
 	public void launchSettingsActivity(View v)
     {
     	Intent intent = new Intent(this, SettingsActivity.class);
     	//intent.putExtra("table", table.getTableNum());
     	startActivity(intent);
+    }
+	
+
+	public void launchTableEdit(Table table)
+    {
+    	Intent intent = new Intent(this, TableActivity.class);
+    	intent.putExtra("table", table);
+    	startActivityForResult(intent,777);
+    	
     }
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -82,10 +92,12 @@ public class MainActivity extends ActionBarActivity {
 			// Make sure the request was successful
 			if (resultCode == RESULT_OK) {
 
-				diners = (ArrayList<Diner>) data.getSerializableExtra("diners");
-				Table t = (Table) data.getSerializableExtra("table");
-				t.setDiners(diners);
-				selectedTable = t;
+				//diners = (ArrayList<Diner>) data.getSerializableExtra("diners");
+				selectedTable = (Table) data.getSerializableExtra("table");
+				tables.remove(tableIndex);
+				tables.add(tableIndex, selectedTable);
+				//t.setDiners(diners);
+				//selectedTable = t;
 				
 			}
 		}

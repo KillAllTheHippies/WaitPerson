@@ -168,7 +168,7 @@ public class TableActivity extends ActionBarActivity {
 //		order.addItem(new OrderItem("Pigs Head", 15.99));
 		
 		Intent returnIntent = new Intent();
-		returnIntent.putExtra("diners", diners);
+		//returnIntent.putExtra("diners", diners);
 		table.setDiners(diners);
 		returnIntent.putExtra("table", table);
 		
