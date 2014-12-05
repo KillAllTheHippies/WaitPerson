@@ -4,9 +4,14 @@ package jamie.ardis.waitperson;
 
 
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import android.support.v7.app.ActionBarActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,6 +23,7 @@ import android.widget.ListView;
 
 public class MainActivity extends ActionBarActivity {
 
+	
 	ArrayList<Table> tables = new ArrayList<Table>();
 	ArrayAdapter<Table> adapter;
 	//Table table;
@@ -39,7 +45,7 @@ public class MainActivity extends ActionBarActivity {
 			tables.add(t);
 			
 		}
-		
+		//writeTables(tables);
 		
 
 		TablesAdapter adapter = new TablesAdapter(this, tables);
@@ -55,17 +61,27 @@ public class MainActivity extends ActionBarActivity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
-
-				selectedTable = (Table) lv.getItemAtPosition(position);
+				tables = readTables();
+				
+				//selectedTable = (Table) lv.getItemAtPosition(position);
+				selectedTable = tables.get(position);
 				tableIndex = position;
 			
-				launchTableEdit((Table)lv.getItemAtPosition(position));
-				
+				//launchTableActivity((Table)lv.getItemAtPosition(position));
+				launchTableActivity(selectedTable);
 				
 
 			}
 
 		});
+	}
+	@Override
+	protected void onStart() {
+		super.onStart();
+		
+		
+		tables = readTables();
+		
 	}
 	
 	
@@ -77,7 +93,7 @@ public class MainActivity extends ActionBarActivity {
     }
 	
 
-	public void launchTableEdit(Table table)
+	public void launchTableActivity(Table table)
     {
     	Intent intent = new Intent(this, TableActivity.class);
     	intent.putExtra("table", table);
@@ -92,10 +108,17 @@ public class MainActivity extends ActionBarActivity {
 			// Make sure the request was successful
 			if (resultCode == RESULT_OK) {
 
-				//diners = (ArrayList<Diner>) data.getSerializableExtra("diners");
+				
+				
+				//get the table from the previous intent
 				selectedTable = (Table) data.getSerializableExtra("table");
-				tables.remove(tableIndex);
-				tables.add(tableIndex, selectedTable);
+				//add the table to the arraylist
+				tables.set(tableIndex, selectedTable);
+				// commit the arraylist of tables to disk
+				writeTables(tables);
+				
+				//tables.remove(tableIndex);
+				//tables.add(tableIndex, selectedTable);
 				//t.setDiners(diners);
 				//selectedTable = t;
 				
@@ -121,5 +144,44 @@ public class MainActivity extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	public ArrayList<Table> readTables() {
+
+		String filename = "tables.ser";
+		// read the object from file
+
+		FileInputStream fis = null;
+		ObjectInputStream in = null;
+		try {
+			fis = openFileInput(filename);
+			in = new ObjectInputStream(fis);
+			tables = (ArrayList<Table>) in.readObject();
+			in.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return tables;
+
+	}
+
+	private void writeTables(ArrayList<Table> tables) {
+		// TODO Auto-generated method stub
+
+		String filename = "tables.ser";
+		// save the object to file
+		FileOutputStream fos = null;
+		ObjectOutputStream out = null;
+		try {
+			fos = openFileOutput(filename, Context.MODE_PRIVATE);
+			out = new ObjectOutputStream(fos);
+			out.writeObject(tables);
+
+			out.close();
+			fos.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
 	
 }

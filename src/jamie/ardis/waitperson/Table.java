@@ -5,10 +5,6 @@ import java.util.ArrayList;
 
 public class Table implements Serializable{
 	
-	@Override
-	public String toString() {
-		return "Table " + tableNum;
-	}
 
 	private String tableNum;
 	ArrayList<Diner> diners = new ArrayList<Diner>();
@@ -17,6 +13,10 @@ public class Table implements Serializable{
 	public Table(String tableNum) {
 		setTableNum(tableNum);
 		
+	}
+	@Override
+	public String toString() {
+		return "Table " + tableNum + diners.toString();
 	}
 
 	public String getTableNum() {

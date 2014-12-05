@@ -42,7 +42,7 @@ public class Diner implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Diner " + dinerNum ;
+		return "Diner " + dinerNum +  " " +getOrder() ;
 	}
 	
 	

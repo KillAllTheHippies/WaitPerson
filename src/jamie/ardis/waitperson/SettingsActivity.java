@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 public class SettingsActivity extends ActionBarActivity {
 
-	ArrayList<Diner> diners = new ArrayList<Diner>();
+	ArrayList<Table> tables = new ArrayList<Table>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,10 +24,10 @@ public class SettingsActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_settings);
 		TextView tvTest = (TextView) findViewById(R.id.tvTest);
 
-		Diner d = new Diner(1);
-		diners.add(d);
-		writeDiners(diners);
-		ArrayList<Diner> diners1 = readDiners();
+		Table t = new Table("100");
+		tables.add(t);
+		writeTables(tables);
+		ArrayList<Table> tables = readTables();
 
 		// String filename = "diners.ser";
 		// // save the object to file
@@ -58,12 +58,12 @@ public class SettingsActivity extends ActionBarActivity {
 		// } catch (Exception ex) {
 		// ex.printStackTrace();
 		// }
-		tvTest.setText(diners1.get(0).toString());
+		tvTest.setText(tables.get(0).toString());
 	}
 
-	public ArrayList<Diner> readDiners() {
+	public ArrayList<Table> readTables() {
 
-		String filename = "diners.ser";
+		String filename = "tables.ser";
 		// read the object from file
 
 		FileInputStream fis = null;
@@ -71,16 +71,16 @@ public class SettingsActivity extends ActionBarActivity {
 		try {
 			fis = openFileInput(filename);
 			in = new ObjectInputStream(fis);
-			ArrayList<Diner> diners = (ArrayList<Diner>) in.readObject();
+			ArrayList<Table> tables = (ArrayList<Table>) in.readObject();
 			in.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		return diners;
+		return tables;
 
 	}
 
-	private void writeDiners(ArrayList<Diner> diners) {
+	private void writeTables(ArrayList<Table> tables) {
 		// TODO Auto-generated method stub
 
 		String filename = "diners.ser";
@@ -90,7 +90,7 @@ public class SettingsActivity extends ActionBarActivity {
 		try {
 			fos = openFileOutput(filename, Context.MODE_PRIVATE);
 			out = new ObjectOutputStream(fos);
-			out.writeObject(diners);
+			out.writeObject(tables);
 
 			out.close();
 			fos.close();

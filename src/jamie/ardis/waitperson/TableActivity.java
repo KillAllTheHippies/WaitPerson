@@ -50,6 +50,7 @@ public class TableActivity extends ActionBarActivity {
 		tvTable.setText("Table " + table.getTableNum());
 		
 		populateDinersToSpinner(table.getDiners());
+		diners = table.getDiners();
 
 	}
 
@@ -59,13 +60,6 @@ public class TableActivity extends ActionBarActivity {
 		startActivity(intent);
 	}
 
-	public ArrayList<Diner> getDiners() {
-		return diners;
-	}
-
-	public void setDiners(ArrayList<Diner> diners) {
-		this.diners = diners;
-	}
 
 	public int getDinerNum() {
 		return dinerNum;
