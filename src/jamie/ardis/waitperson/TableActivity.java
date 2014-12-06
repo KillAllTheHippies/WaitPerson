@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,20 +24,23 @@ public class TableActivity extends ActionBarActivity {
 	private Button btnTakeOrder;
 	private Button btnAddDiner;
 	ArrayList<Diner> diners = new ArrayList<Diner>();
-
+	ArrayAdapter<Diner> adapter;
 	private Order order = new Order();
 	private Table table;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_table);
+		
 		TextView tvTable = (TextView) findViewById(R.id.tvTable);
-
+		
+		
 		addListenerOnBtnAddDiner();
 		addListenerOnSpinnerItemSelection();
 		addListenerOnBtnTakeOrder();
-		String tableNum;
+
 		if (savedInstanceState == null) {
 			Bundle extras = getIntent().getExtras();
 			if (extras == null) {
@@ -51,8 +56,23 @@ public class TableActivity extends ActionBarActivity {
 		
 		populateDinersToSpinner(table.getDiners());
 		diners = table.getDiners();
+		refreshDinersList();
+		
+		
 
 	}
+	
+	public void refreshDinersList()
+	{
+		 ListView lvDiners = (ListView) findViewById(R.id.lvDiners);
+	        DinersListAdapter adapter = new DinersListAdapter(this, diners);
+			lvDiners.setAdapter(adapter);
+	}
+	 @Override
+	    protected void onStart() {
+	        super.onStart();
+	       refreshDinersList();
+	    }
 
 	public void launchOrderActivity(View v) {
 		Intent intent = new Intent(this, OrderActivity.class);
@@ -92,6 +112,7 @@ public class TableActivity extends ActionBarActivity {
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 		spDiners.setAdapter(adapter);
+		
 	}
 
 	public void addListenerOnSpinnerItemSelection() {
@@ -109,6 +130,7 @@ public class TableActivity extends ActionBarActivity {
 			public void onClick(View v) {
 
 				addDinerToSpinner(diners);
+				 refreshDinersList();
 
 			}
 
@@ -152,6 +174,7 @@ public class TableActivity extends ActionBarActivity {
 				order = (Order) data.getSerializableExtra("order");
 				Diner d = (Diner) spDiners.getSelectedItem();
 				d.setOrder(order);
+				 refreshDinersList();
 			}
 		}
 	}

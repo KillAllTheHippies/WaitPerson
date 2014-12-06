@@ -11,7 +11,7 @@ public class Order implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Order [items=" + items + "]";
+		return "" + items.toString();
 	}
 
 	public Order() {
