@@ -22,7 +22,7 @@ public class TableActivity extends ActionBarActivity {
 	private Button btnTakeOrder;
 	private Button btnAddDiner;
 	ArrayList<Diner> diners = new ArrayList<Diner>();
-	private int dinerNum = 1;
+
 	private Order order = new Order();
 	private Table table;
 
@@ -61,22 +61,24 @@ public class TableActivity extends ActionBarActivity {
 	}
 
 
-	public int getDinerNum() {
-		return dinerNum;
-	}
+	
 
-	public void setDinerNum(int dinerNum) {
-		this.dinerNum = dinerNum;
-	}
-
-	public void addDinerToSpinner(ArrayList<Diner> diners, int dinerNum) {
+	public void addDinerToSpinner(ArrayList<Diner> diners) {
 
 		spDiners = (Spinner) findViewById(R.id.spDiners);
 
-		Diner diner = new Diner(dinerNum);
-		dinerNum++;
-		setDinerNum(dinerNum);
-		diners.add(diner);
+		if(diners.size() == 0)
+		{
+			Diner diner = new Diner(1);
+			diners.add(diner);
+		}
+		else
+		{
+			Diner diner = new Diner(diners.size() + 1);
+			diners.add(diner);
+		}
+		
+		
 
 		DinersAdapter adapter = new DinersAdapter(this, diners);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -106,7 +108,7 @@ public class TableActivity extends ActionBarActivity {
 			@Override
 			public void onClick(View v) {
 
-				addDinerToSpinner(diners, dinerNum);
+				addDinerToSpinner(diners);
 
 			}
 
