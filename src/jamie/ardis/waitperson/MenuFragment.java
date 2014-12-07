@@ -29,8 +29,8 @@ MenuItems m = new MenuItems();
 		return view;
 	}
 
-	// Assume it's known
-	private static final int ROW_ITEMS = 3;
+	
+	
 
 	private static final class GridAdapter extends BaseAdapter {
 
@@ -45,7 +45,7 @@ MenuItems m = new MenuItems();
 		 */
 		private GridAdapter(final ArrayList<OrderItem> items) {
 
-			mCount = items.size() * ROW_ITEMS;
+			mCount = items.size() ;
 			mItems = items;
 
 		}
@@ -79,12 +79,17 @@ MenuItems m = new MenuItems();
 			TextView text = (TextView) view
 					.findViewById(R.id.itemPrice);
 
-			text.setText("€" + mItems.get(position).getPrice());
+			try {
+				text.setText("€" + mItems.get(position).getPrice());
 
-			text = (TextView) view
-					.findViewById(R.id.itemName);
+				text = (TextView) view
+						.findViewById(R.id.itemName);
 
-			text.setText(mItems.get(position).getName());
+				text.setText(mItems.get(position).getName());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 			return view;
 		}
