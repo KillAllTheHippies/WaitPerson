@@ -9,89 +9,103 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.GridView;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 public class OrderActivity extends ActionBarActivity {
-	
+
 	Order order = new Order();
 	MenuItems menu = new MenuItems();
-	
+	ArrayList<OrderItem> activeList;
 
-	
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_order);
 		TextView tvDinersDisplay = (TextView) findViewById(R.id.tvDinerDisplay);
-		addMenuToSpinners();
+		// addMenuToSpinners();
 		order = (Order) getIntent().getSerializableExtra("order");
 
-	}
-	public void addStarter(View v)
-	{
-		Spinner spStarters = (Spinner) findViewById(R.id.spStarters);
-		order.addItem((OrderItem)spStarters.getSelectedItem());
-	}
-	
-	public void addMain(View v)
-	{
-		Spinner spMains = (Spinner) findViewById(R.id.spMains);
-		order.addItem((OrderItem)spMains.getSelectedItem());
-	}
-	public void addDesert(View v)
-	{
-	
-		Spinner spDeserts = (Spinner) findViewById(R.id.spDeserts);
-		order.addItem((OrderItem)spDeserts.getSelectedItem());
+		GridView gv = (GridView) findViewById(R.id.menuGrid);
 		
+		RadioButton rdbStarters = (RadioButton) findViewById(R.id.rdbStarters);
+		OnClickListener startersListener = new OnClickListener() {
+			public void onClick(View v) {
+				activeList = menu.getStarters();
+				
+				
+			}
+		};
+		rdbStarters.setOnClickListener(startersListener);
+
 	}
-	public void addDrink(View v)
-	{
-	
-		Spinner spDrinks = (Spinner) findViewById(R.id.spDrinks);
-		order.addItem((OrderItem)spDrinks.getSelectedItem());
-		
-	}
-	
-	public void returnInfo(View v)
-	{
-		//test code
-//		order.addItem(new OrderItem("Coffee", 2.50));
-//		order.addItem(new OrderItem("Cake", 2.99));
-//		order.addItem(new OrderItem("Pigs Head", 15.99));
-		
+
+	// public void addStarter(View v)
+	// {
+	// Spinner spStarters = (Spinner) findViewById(R.id.spStarters);
+	// order.addItem((OrderItem)spStarters.getSelectedItem());
+	// }
+	//
+	// public void addMain(View v)
+	// {
+	// Spinner spMains = (Spinner) findViewById(R.id.spMains);
+	// order.addItem((OrderItem)spMains.getSelectedItem());
+	// }
+	// public void addDesert(View v)
+	// {
+	//
+	// Spinner spDeserts = (Spinner) findViewById(R.id.spDeserts);
+	// order.addItem((OrderItem)spDeserts.getSelectedItem());
+	//
+	// }
+	// public void addDrink(View v)
+	// {
+	//
+	// Spinner spDrinks = (Spinner) findViewById(R.id.spDrinks);
+	// order.addItem((OrderItem)spDrinks.getSelectedItem());
+	//
+	// }
+
+	public void returnInfo(View v) {
+		// test code
+		// order.addItem(new OrderItem("Coffee", 2.50));
+		// order.addItem(new OrderItem("Cake", 2.99));
+		// order.addItem(new OrderItem("Pigs Head", 15.99));
+
 		Intent returnIntent = new Intent();
 		returnIntent.putExtra("order", order);
 		setResult(Activity.RESULT_OK, returnIntent);
 		finish();
 	}
-	
-	public void addMenuToSpinners() {
 
-		Spinner spStarters = (Spinner) findViewById(R.id.spStarters);
-		Spinner spMains = (Spinner) findViewById(R.id.spMains);
-		Spinner spDeserts = (Spinner) findViewById(R.id.spDeserts);
-		Spinner spDrinks = (Spinner) findViewById(R.id.spDrinks);
-		
-		MenuAdapter starterAdapter = new MenuAdapter(this, menu.getStarters());
-		starterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spStarters.setAdapter(starterAdapter);
-		
-		MenuAdapter mainAdapter = new MenuAdapter(this, menu.getMains());
-		mainAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spMains.setAdapter(mainAdapter);
-		
-		MenuAdapter desertAdapter = new MenuAdapter(this, menu.getDeserts());
-		desertAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spDeserts.setAdapter(desertAdapter);
-		
-		MenuAdapter drinkAdapter = new MenuAdapter(this, menu.getDrinks());
-		drinkAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spDrinks.setAdapter(drinkAdapter);
-	}
+	// public void addMenuToSpinners() {
+	//
+	// Spinner spStarters = (Spinner) findViewById(R.id.spStarters);
+	// Spinner spMains = (Spinner) findViewById(R.id.spMains);
+	// Spinner spDeserts = (Spinner) findViewById(R.id.spDeserts);
+	// Spinner spDrinks = (Spinner) findViewById(R.id.spDrinks);
+	//
+	// MenuAdapter starterAdapter = new MenuAdapter(this, menu.getStarters());
+	// starterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	// spStarters.setAdapter(starterAdapter);
+	//
+	// MenuAdapter mainAdapter = new MenuAdapter(this, menu.getMains());
+	// mainAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	// spMains.setAdapter(mainAdapter);
+	//
+	// MenuAdapter desertAdapter = new MenuAdapter(this, menu.getDeserts());
+	// desertAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	// spDeserts.setAdapter(desertAdapter);
+	//
+	// MenuAdapter drinkAdapter = new MenuAdapter(this, menu.getDrinks());
+	// drinkAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	// spDrinks.setAdapter(drinkAdapter);
+	// }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

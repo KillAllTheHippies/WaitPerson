@@ -15,100 +15,56 @@
         android:layout_height="wrap_content"
         android:text="@string/hello_world" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <Spinner
-            android:id="@+id/spStarters"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2" />
-
-        <Button
-            android:id="@+id/btnAddStarter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="addStarter"
-            android:text="@string/add" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <Spinner
-            android:id="@+id/spMains"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2" />
-
-        <Button
-            android:id="@+id/btnAddMain"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="addMain"
-            android:text="@string/add" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <Spinner
-            android:id="@+id/spDeserts"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2" />
-
-        <Button
-            android:id="@+id/btnAddDesert"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="addDesert"
-            android:text="@string/add" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <Spinner
-            android:id="@+id/spDrinks"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2" />
-
-        <Button
-            android:id="@+id/btnAddDrink"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="addDrink"
-            android:text="@string/add" />
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/btnFinalOrder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="returnInfo"
-        android:text="@string/finalise_order" />
-
     <ListView
         android:id="@+id/lvOrder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
     </ListView>
 
+    <RadioGroup
+        android:id="@+id/radioGroup1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/rdbStarters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Starters" />
+
+        <RadioButton
+            android:id="@+id/rdbMains"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mains" />
+
+        <RadioButton
+            android:id="@+id/rdbDeserts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Deserts" />
+        
+        <RadioButton
+            android:id="@+id/rdbDrinks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Drinks" />
+        
+    </RadioGroup>
+
     <fragment
         android:id="@+id/menu_fragment"
         android:name="jamie.ardis.waitperson.MenuFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btnFinalOrder"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="returnInfo"
+        android:text="@string/finalise_order" />
 
 </LinearLayout>
