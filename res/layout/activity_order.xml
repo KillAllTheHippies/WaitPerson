@@ -19,90 +19,96 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
-        
-         <Spinner
-        android:id="@+id/spStarters"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="2" />
 
-         <Button
-             android:id="@+id/btnAddStarter"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:text="@string/add"
-             android:onClick="addStarter" />
-        
+        <Spinner
+            android:id="@+id/spStarters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" />
+
+        <Button
+            android:id="@+id/btnAddStarter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="addStarter"
+            android:text="@string/add" />
     </LinearLayout>
 
-   
- <LinearLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
-    <Spinner
-        android:id="@+id/spMains"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="2" />
-    
-    <Button
-             android:id="@+id/btnAddMain"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:text="@string/add"
-             android:onClick="addMain" />
-    
+
+        <Spinner
+            android:id="@+id/spMains"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" />
+
+        <Button
+            android:id="@+id/btnAddMain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="addMain"
+            android:text="@string/add" />
     </LinearLayout>
 
- <LinearLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
-    <Spinner
-        android:id="@+id/spDeserts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="2" />
-    
-    <Button
-             android:id="@+id/btnAddDesert"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:text="@string/add"
-             android:onClick="addDesert" />
+
+        <Spinner
+            android:id="@+id/spDeserts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" />
+
+        <Button
+            android:id="@+id/btnAddDesert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="addDesert"
+            android:text="@string/add" />
     </LinearLayout>
 
- <LinearLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
-    <Spinner
-        android:id="@+id/spDrinks"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="2" />
-    <Button
-             android:id="@+id/btnAddDrink"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:text="@string/add"
-             android:onClick="addDrink" />
-    
-        </LinearLayout>
-    
+
+        <Spinner
+            android:id="@+id/spDrinks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" />
+
+        <Button
+            android:id="@+id/btnAddDrink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="addDrink"
+            android:text="@string/add" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnFinalOrder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/finalise_order"
-        android:onClick="returnInfo" />
+        android:onClick="returnInfo"
+        android:text="@string/finalise_order" />
 
     <ListView
         android:id="@+id/lvOrder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
     </ListView>
+
+    <fragment
+        android:id="@+id/menu_fragment"
+        android:name="jamie.ardis.waitperson.MenuFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
 
 </LinearLayout>

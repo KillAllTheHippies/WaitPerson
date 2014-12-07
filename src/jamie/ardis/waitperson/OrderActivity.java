@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.GridView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -27,20 +28,6 @@ public class OrderActivity extends ActionBarActivity {
 		TextView tvDinersDisplay = (TextView) findViewById(R.id.tvDinerDisplay);
 		addMenuToSpinners();
 		order = (Order) getIntent().getSerializableExtra("order");
-		
-//		if (savedInstanceState == null) {
-//		    Bundle bundle = getIntent().getExtras();
-//		    if(bundle == null) {
-//		        order= null;
-//		    } else {
-//		    	Intent intent = getIntent();
-//		        order= (Order) intent.getSerializableExtra("order");
-//		    }
-//		} else {
-//		    order= (Order) savedInstanceState.getSerializable("order");
-//		}
-		
-		//tvDinersDisplay.setText(order.toString()); // crashes herez
 
 	}
 	public void addStarter(View v)
