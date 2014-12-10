@@ -6,12 +6,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-import android.support.v7.app.ActionBarActivity;
 import android.content.Context;
 import android.os.Bundle;
-
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.GridView;
 import android.widget.TextView;
 
 public class SettingsActivity extends ActionBarActivity {
@@ -22,11 +22,11 @@ public class SettingsActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_settings);
-		TextView tvTest = (TextView) findViewById(R.id.tvTest);
+		
 
-		Table t = new Table("100");
-		tables.add(t);
-		writeTables(tables);
+		 GridView gridview = (GridView) findViewById(R.id.gridview);
+	     gridview.setAdapter(new ImageAdapter(this));
+		
 		ArrayList<Table> tables = readTables();
 
 		// String filename = "diners.ser";
@@ -58,7 +58,7 @@ public class SettingsActivity extends ActionBarActivity {
 		// } catch (Exception ex) {
 		// ex.printStackTrace();
 		// }
-		tvTest.setText(tables.get(0).toString());
+		
 	}
 
 	public ArrayList<Table> readTables() {

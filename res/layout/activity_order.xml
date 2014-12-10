@@ -45,20 +45,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Deserts" />
-        
+
         <RadioButton
             android:id="@+id/rdbDrinks"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Drinks" />
-        
     </RadioGroup>
 
-    <fragment
-        android:id="@+id/menu_fragment"
-        android:name="jamie.ardis.waitperson.MenuFragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <GridView
+        android:id="@+id/menuGrid"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:columnWidth="100dp"
+        android:gravity="center"
+        android:numColumns="auto_fit"
+        android:padding="5dp"
+        android:stretchMode="columnWidth" >
+    </GridView>
 
     <Button
         android:id="@+id/btnFinalOrder"

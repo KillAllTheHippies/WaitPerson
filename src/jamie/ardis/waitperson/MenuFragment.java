@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 public class MenuFragment extends Fragment {
 
+//Initialise the menu
 MenuItems m = new MenuItems();
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -21,13 +22,16 @@ MenuItems m = new MenuItems();
 		View view = inflater.inflate(R.layout.menu_fragment, container, false);
 
 		super.onCreate(savedInstanceState);
-		final GridView grid = (GridView) view.findViewById(R.id.menuGrid);
+		GridView grid = (GridView) view.findViewById(R.id.menuGrid);
 
 
-		grid.setAdapter(new GridAdapter(m.getMains()));
+		grid.setAdapter(new GridAdapter(m.getStarters()));
 
 		return view;
+		
 	}
+	
+	
 
 	
 	

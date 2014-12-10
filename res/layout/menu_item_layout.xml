@@ -11,19 +11,29 @@
         android:background="#AAAAAA"
          >
 
-        <ImageButton
+        <ImageView
+        android:id="@+id/menuItemButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/mains" >
+    </ImageView>
+ 
+       <!--  <ImageButton
             android:id="@+id/menuItemButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/mains"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            
+             /> -->
 
         <TextView
             android:id="@+id/itemName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/menuItemButton"
-            android:text="Hello"
+           
             android:layout_centerHorizontal="true" />
 
         <TextView
@@ -31,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/itemName"
-            android:text="Hello"
+            
             android:layout_centerHorizontal="true" />
     </RelativeLayout>
 
