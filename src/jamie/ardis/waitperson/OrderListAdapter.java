@@ -39,8 +39,10 @@ public class OrderListAdapter extends ArrayAdapter<OrderItem> {
        TextView tvOrder = (TextView) convertView.findViewById(R.id.tvOrder);
        
        // Populate the data into the template view using the data object
-       tvOrder.setText(item.toString());
-       
+       if (item == null)
+    	   tvOrder.setText("No order so far.");
+       else
+    	   tvOrder.setText(item.toString());
        
 
        // Return the completed view to render on screen

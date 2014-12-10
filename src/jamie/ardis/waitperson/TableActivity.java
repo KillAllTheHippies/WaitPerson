@@ -1,6 +1,5 @@
 package jamie.ardis.waitperson;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -57,9 +56,9 @@ public class TableActivity extends ActionBarActivity {
 			table = (Table) savedInstanceState.getSerializable("table");
 		}
 
-		tvTable.setText("Table " + table.getTableNum() + "\tDiners: " + diners.size());
+		tvTable.setText("Table " + table.getTableNum() + "\tDiners: " + table.getDiners().size());
 		
-		populateDinersToSpinner(table.getDiners());
+		populateDinersToSpinner();
 		diners = table.getDiners();
 		refreshDinersList();
 		
@@ -72,11 +71,13 @@ public class TableActivity extends ActionBarActivity {
 		// put the order for the selected diner in the listview
 		TextView tvTable = (TextView) findViewById(R.id.tvTable);
 		 ListView lvDiners = (ListView) findViewById(R.id.lvDiners);
+		 if (spDiners.getSelectedItem() != null){
 		 Diner d =(Diner) spDiners.getSelectedItem();
 	        OrderListAdapter adapter = new OrderListAdapter(this, d.getOrder().getItems());
 			lvDiners.setAdapter(adapter);
+		 }
 			
-			tvTable.setText("Table " + table.getTableNum() + "\tDiners: " + diners.size());
+			tvTable.setText("Table " + table.getTableNum() + "\tDiners: " + table.getDiners().size());
 	}
 	 @Override
 	    protected void onStart() {
@@ -88,6 +89,12 @@ public class TableActivity extends ActionBarActivity {
 		 showDialog(MY_DIALOG_ID);
 		 
 	 }
+	 
+	 public void clearTable(View v)
+	 {
+		 table.clearTable();
+		 refreshDinersList();
+	 }
 
 	public void launchOrderActivity(View v) {
 		Intent intent = new Intent(this, OrderActivity.class);
@@ -98,33 +105,46 @@ public class TableActivity extends ActionBarActivity {
 
 	
 
-	public void addDinerToSpinner(ArrayList<Diner> diners) {
+	public void addDiner() {
 
 		spDiners = (Spinner) findViewById(R.id.spDiners);
 
-		if(diners.size() == 0)
+		if(table.getDiners().size() == 0)
 		{
 			Diner diner = new Diner(1);
-			diners.add(diner);
+			table.addDiner(diner);
+			//diners.add(diner);
+			table.setNumDiners(1);
 		}
-		else
+		else if (table.getDiners().size() == 1 && table.getNumDiners() == 0)
 		{
-			Diner diner = new Diner(diners.size() + 1);
-			diners.add(diner);
+			table.setNumDiners(1);
+			Diner diner = new Diner(table.getNumDiners() + 1);
+			table.addDiner(diner);
+			//diners.add(diner);
+			table.setNumDiners(table.getNumDiners() + 1);
+		}
+		else 
+		{
+			
+			Diner diner = new Diner(table.getNumDiners() + 1);
+			table.addDiner(diner);
+			//diners.add(diner);
+			table.setNumDiners(table.getNumDiners() + 1);
 		}
 		
 		
 
-		DinersAdapter adapter = new DinersAdapter(this, diners);
+		DinersAdapter adapter = new DinersAdapter(this, table.getDiners());
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 		spDiners.setAdapter(adapter);
 		refreshDinersList();
 	}
-	public void populateDinersToSpinner(ArrayList<Diner> diners) {
+	public void populateDinersToSpinner() {
 
 		spDiners = (Spinner) findViewById(R.id.spDiners);
-		DinersAdapter adapter = new DinersAdapter(this, diners);
+		DinersAdapter adapter = new DinersAdapter(this, table.getDiners());
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 		spDiners.setAdapter(adapter);
@@ -151,7 +171,7 @@ public class TableActivity extends ActionBarActivity {
 			@Override
 			public void onClick(View v) {
 
-				addDinerToSpinner(diners);
+				addDiner();
 				 refreshDinersList();
 
 			}
@@ -210,13 +230,15 @@ public class TableActivity extends ActionBarActivity {
 		
 		Intent returnIntent = new Intent();
 		//returnIntent.putExtra("diners", diners);
-		table.setDiners(diners);
+		//table.setDiners(diners);
 		returnIntent.putExtra("table", table);
 		
 		setResult(Activity.RESULT_OK, returnIntent);
 		finish();
 		
 	}
+	
+	//dialog for making sure user wants to delete diner
 	protected Dialog onCreateDialog(int id) {
 	   
 	 
@@ -231,8 +253,9 @@ public class TableActivity extends ActionBarActivity {
 	DialogInterface.OnClickListener() {   
 	                  public void onClick(DialogInterface dialog, int which) {   
 	                        
-	                        diners.remove(spDiners.getSelectedItemPosition());
-	                        populateDinersToSpinner(diners);
+	                	  table.removeDiner(spDiners.getSelectedItemPosition());
+	                        //diners.remove(spDiners.getSelectedItemPosition());
+	                        populateDinersToSpinner();
 	                      return;   
 	                } });    
 	 
@@ -264,7 +287,6 @@ public class TableActivity extends ActionBarActivity {
 	    }
 	    
 	
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
