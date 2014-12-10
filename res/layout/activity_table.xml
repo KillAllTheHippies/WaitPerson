@@ -47,6 +47,15 @@
         android:onClick="returnInfo"
         android:layout_toRightOf="@+id/btnTakeOrder"
          />
+    
+    <Button
+        android:id="@+id/btnRemove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/remove_diner"
+        android:onClick="removeDiner"
+        android:layout_toRightOf="@+id/btnBack"
+         />
         
         
     </RelativeLayout>

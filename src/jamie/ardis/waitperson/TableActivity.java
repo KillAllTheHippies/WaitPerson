@@ -1,11 +1,16 @@
 package jamie.ardis.waitperson;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
-import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,7 +19,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +32,7 @@ public class TableActivity extends ActionBarActivity {
 	ArrayAdapter<Diner> adapter;
 	private Order order = new Order();
 	private Table table;
-	
+	private static final int MY_DIALOG_ID = 2;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +83,11 @@ public class TableActivity extends ActionBarActivity {
 	        super.onStart();
 	       refreshDinersList();
 	    }
+	 public void removeDiner(View v)
+	 {
+		 showDialog(MY_DIALOG_ID);
+		 
+	 }
 
 	public void launchOrderActivity(View v) {
 		Intent intent = new Intent(this, OrderActivity.class);
@@ -208,6 +217,53 @@ public class TableActivity extends ActionBarActivity {
 		finish();
 		
 	}
+	protected Dialog onCreateDialog(int id) {
+	   
+	 
+	    	if (id == MY_DIALOG_ID){
+	        AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
+	        builder2.setTitle(R.string.dialog_title);
+	        builder2.setIcon(android.R.drawable.btn_star);
+	        builder2.setMessage("");
+	        
+	        //add click listeners to the buttons
+	        builder2.setPositiveButton(android.R.string.ok, new
+	DialogInterface.OnClickListener() {   
+	                  public void onClick(DialogInterface dialog, int which) {   
+	                        
+	                        diners.remove(spDiners.getSelectedItemPosition());
+	                        populateDinersToSpinner(diners);
+	                      return;   
+	                } });    
+	 
+	        builder2.setNegativeButton(android.R.string.cancel, new
+	DialogInterface.OnClickListener() {   
+	                  public void onClick(DialogInterface dialog, int which) {   
+	                        Toast.makeText(getApplicationContext(), 
+	"Clicked Cancel!", Toast.LENGTH_SHORT).show();
+	                      return;   
+	                } });    
+	             
+	        return builder2.create();
+	        
+	    	}//end if
+	    	else
+	    		return null;
+	    }
+	    
+	@Override
+	protected void onPrepareDialog(int id, Dialog dialog) {
+	    super.onPrepareDialog(id, dialog);
+	   
+	            AlertDialog myDialog = (AlertDialog) dialog;
+	             
+	            Locale.getDefault();
+	                myDialog.setMessage("Are you sure you want to remove Diner " + 
+	            ((Diner) spDiners.getSelectedItem()).getDinerNum());
+	       
+	    }
+	    
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
