@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -34,8 +35,8 @@ public class TableActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_table);
 		
-		TextView tvTable = (TextView) findViewById(R.id.tvTable);
 		
+		TextView tvTable = (TextView) findViewById(R.id.tvTable);
 		
 		addListenerOnBtnAddDiner();
 		addListenerOnSpinnerItemSelection();
@@ -52,7 +53,7 @@ public class TableActivity extends ActionBarActivity {
 			table = (Table) savedInstanceState.getSerializable("table");
 		}
 
-		tvTable.setText("Table " + table.getTableNum());
+		tvTable.setText("Table " + table.getTableNum() + "\tDiners: " + diners.size());
 		
 		populateDinersToSpinner(table.getDiners());
 		diners = table.getDiners();
@@ -62,11 +63,16 @@ public class TableActivity extends ActionBarActivity {
 
 	}
 	
-	public void refreshDinersList()
+	public  void refreshDinersList()
 	{
+		// put the order for the selected diner in the listview
+		TextView tvTable = (TextView) findViewById(R.id.tvTable);
 		 ListView lvDiners = (ListView) findViewById(R.id.lvDiners);
-	        DinersListAdapter adapter = new DinersListAdapter(this, diners);
+		 Diner d =(Diner) spDiners.getSelectedItem();
+	        OrderListAdapter adapter = new OrderListAdapter(this, d.getOrder().getItems());
 			lvDiners.setAdapter(adapter);
+			
+			tvTable.setText("Table " + table.getTableNum() + "\tDiners: " + diners.size());
 	}
 	 @Override
 	    protected void onStart() {
@@ -104,6 +110,7 @@ public class TableActivity extends ActionBarActivity {
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 		spDiners.setAdapter(adapter);
+		refreshDinersList();
 	}
 	public void populateDinersToSpinner(ArrayList<Diner> diners) {
 
@@ -117,7 +124,13 @@ public class TableActivity extends ActionBarActivity {
 
 	public void addListenerOnSpinnerItemSelection() {
 		spDiners = (Spinner) findViewById(R.id.spDiners);
-		spDiners.setOnItemSelectedListener(new DinerSelectionListener());
+		spDiners.setOnItemSelectedListener(new DinerSelectionListener(){
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int pos,long id)
+			  {
+				refreshDinersList();
+			  }
+		});
 	}
 
 	public void addListenerOnBtnAddDiner() {
