@@ -24,8 +24,8 @@ public class Table implements Serializable{
 	{
 		//reset the number of diners
 		numDiners = 0;
-		// overwrite the array of diners with a blank array.
-		diners = new ArrayList<Diner>();
+		// remove all the diners.
+		diners.clear();
 	}
 	
 	public int getNumDiners() {

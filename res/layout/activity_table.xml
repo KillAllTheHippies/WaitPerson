@@ -56,17 +56,18 @@
         android:onClick="removeDiner"
         android:layout_toRightOf="@+id/btnBack"
          />
-    
-    <Button
+
+        <Button
         android:id="@+id/btnClearTable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/clear_table"
         android:onClick="clearTable"
-        android:layout_below="@+id/btnBack"
+        android:gravity="center_horizontal"
+        android:layout_below="@id/btnBack"
+        android:layout_centerHorizontal="true"
          />
-        
-        
+  
     </RelativeLayout>
 
     
