@@ -63,6 +63,10 @@ public class TableActivity extends ActionBarActivity {
 		refreshDinersOrder();
 
 	}
+	@Override
+	public void onBackPressed() {
+	    returnInfo(getCurrentFocus());
+	}
 
 	public void refreshDinersOrder() {
 		// put the order for the selected diner in the listview
