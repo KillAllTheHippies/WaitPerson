@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -39,10 +40,13 @@ public class TableActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_table);
 
 		TextView tvTable = (TextView) findViewById(R.id.tvTable);
-
+		ListView lvOrder = (ListView) findViewById(R.id.lvOrder);
 		addListenerOnBtnAddDiner();
 		addListenerOnSpinnerItemSelection();
 		addListenerOnBtnTakeOrder();
+		
+		
+		
 
 		if (savedInstanceState == null) {
 			Bundle extras = getIntent().getExtras();
@@ -71,20 +75,21 @@ public class TableActivity extends ActionBarActivity {
 	public void refreshDinersOrder() {
 		// put the order for the selected diner in the listview
 		TextView tvTable = (TextView) findViewById(R.id.tvTable);
-		ListView lvDiners = (ListView) findViewById(R.id.lvDiners);
+		ListView lvOrder = (ListView) findViewById(R.id.lvOrder);
 
 		if (spDiners.getSelectedItem() != null) {
 			Diner d = (Diner) spDiners.getSelectedItem();
 			OrderListAdapter adapter = new OrderListAdapter(this, d.getOrder()
 					.getItems());
-			lvDiners.setAdapter(adapter);
+			lvOrder.setAdapter(adapter);
 		}
 		else // if no diner is selected (or if the table has been cleared..)
 		{
 			//create a dummy diner with no order and populate the list with its order
 			OrderListAdapter adapter = new OrderListAdapter(this, new Diner(0).getOrder()
 					.getItems());
-			lvDiners.setAdapter(adapter);
+			lvOrder.setAdapter(adapter);
+			
 		}
 
 		tvTable.setText("Table " + table.getTableNum() + "\tDiners: "

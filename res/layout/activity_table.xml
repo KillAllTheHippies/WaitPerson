@@ -1,6 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -28,53 +28,59 @@
         android:prompt="@string/diner" />
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-        
-        <Button
-        android:id="@+id/btnTakeOrder"
         android:layout_width="wrap_content"
-        
-        android:layout_height="wrap_content"
-        android:text="@string/take_order"
-         />
-
-    <Button
+        android:layout_height="wrap_content" >
+       
+   <!--  <Button
         android:id="@+id/btnBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/back"
         android:onClick="returnInfo"
         android:layout_toRightOf="@+id/btnTakeOrder"
-         />
+         /> -->
     
     <Button
         android:id="@+id/btnRemove"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/remove_diner"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
         android:onClick="removeDiner"
-        android:layout_toRightOf="@+id/btnBack"
-         />
+        android:text="@string/remove_diner" />
 
         <Button
-        android:id="@+id/btnClearTable"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/clear_table"
-        android:onClick="clearTable"
-        android:gravity="center_horizontal"
-        android:layout_below="@id/btnBack"
-        android:layout_centerHorizontal="true"
-         />
+            android:id="@+id/btnClearTable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:onClick="clearTable"
+            android:text="@string/clear_table" />
+        
+         <Button
+             android:id="@+id/btnTakeOrder"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_below="@id/btnRemove"
+             android:layout_marginTop="10dp"
+             android:text="@string/take_order" />
   
     </RelativeLayout>
 
-    
-    <ListView
-        android:id="@+id/lvDiners"
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#D1CFBE"
+        android:padding="10dp" >
+        
+        <ListView
+        android:id="@+id/lvOrder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
+
     </ListView>
+        
+
+    </FrameLayout>
 
 </LinearLayout>
