@@ -6,16 +6,17 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-import android.support.v7.app.ActionBarActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -80,10 +81,23 @@ public class MainActivity extends ActionBarActivity {
 		});
 
 	}
+	
+	public void addTables()
+	{
+		Intent intent = new Intent(this, AddTablesActivity.class);
+		intent.putExtra("tables", tables);
+		startActivity(intent);
+	}
+	public void editTables(View v)
+	{
+		Intent intent = new Intent(this, EditTablesActivity.class);
+		intent.putExtra("tables", tables);
+		startActivity(intent);
+	}
 
 	public void launchSettingsActivity(View v) {
 		Intent intent = new Intent(this, SettingsActivity.class);
-		// intent.putExtra("table", table);
+		
 		startActivityForResult(intent, LAUNCH_TABLEACTIVITY);
 	}
 
@@ -125,11 +139,20 @@ public class MainActivity extends ActionBarActivity {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
+		switch (item.getItemId()) {  
+        case R.id.editTables:  
+          editTables(getCurrentFocus());  
+        return true;     
+       case R.id.item2:
+    	   addTables();
+            Toast.makeText(getApplicationContext(),"Item 2 Selected",Toast.LENGTH_LONG).show();  
+          return true;     
+        case R.id.item3:  
+            Toast.makeText(getApplicationContext(),"Item 3 Selected",Toast.LENGTH_LONG).show();  
+          return true;     
+          default:  
+            return super.onOptionsItemSelected(item);  
+    }  
 	}
 
 	public ArrayList<Table> readTables() {

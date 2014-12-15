@@ -38,6 +38,14 @@
             android:name=".ViewTablesActivity"
             android:label="@string/title_activity_view_tables" >
         </activity>
+        <activity
+            android:name=".EditTablesActivity"
+            android:label="@string/title_activity_edit_tables" >
+        </activity>
+        <activity
+            android:name=".AddTablesActivity"
+            android:label="@string/title_activity_add_tables" >
+        </activity>
     </application>
 
 </manifest>

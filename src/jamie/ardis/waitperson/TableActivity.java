@@ -46,9 +46,6 @@ public class TableActivity extends ActionBarActivity {
 		addListenerOnBtnAddDiner();
 		addListenerOnSpinnerItemSelection();
 		addListenerOnBtnTakeOrder();
-		
-		
-		
 
 		if (savedInstanceState == null) {
 			Bundle extras = getIntent().getExtras();
@@ -69,15 +66,18 @@ public class TableActivity extends ActionBarActivity {
 		refreshDinersOrder();
 
 	}
+
 	@Override
 	protected void onStart() {
 		super.onStart();
 		refreshDinersOrder();
 	}
+
 	@Override
 	public void onBackPressed() {
-	    returnInfo(getCurrentFocus());
+		returnInfo(getCurrentFocus());
 	}
+
 	public void returnInfo(View v) {
 		// test code
 		// order.addItem(new OrderItem("Coffee", 2.50));
@@ -102,21 +102,19 @@ public class TableActivity extends ActionBarActivity {
 			OrderListAdapter adapter = new OrderListAdapter(this, d.getOrder()
 					.getItems());
 			lvOrder.setAdapter(adapter);
-		}
-		else // if no diner is selected (or if the table has been cleared..)
+		} else // if no diner is selected (or if the table has been cleared..)
 		{
-			//create a dummy diner with no order and populate the list with its order
-			OrderListAdapter adapter = new OrderListAdapter(this, new Diner(0).getOrder()
-					.getItems());
+			// create a dummy diner with no order and populate the list with its
+			// order
+			OrderListAdapter adapter = new OrderListAdapter(this, new Diner(0)
+					.getOrder().getItems());
 			lvOrder.setAdapter(adapter);
-			
+
 		}
 
 		tvTable.setText("Table " + table.getTableNum() + "\tDiners: "
 				+ table.getDiners().size());
 	}
-
-	
 
 	public void removeDiner(View v) {
 		showDialog(MY_DIALOG_ID);
@@ -129,8 +127,6 @@ public class TableActivity extends ActionBarActivity {
 		populateDinersToSpinner();
 		refreshDinersOrder();
 	}
-
-	
 
 	public void launchOrderActivity(View v) {
 		Intent intent = new Intent(this, OrderActivity.class);
@@ -224,11 +220,16 @@ public class TableActivity extends ActionBarActivity {
 	}
 
 	public void takeOrder() {
-		Intent intent = new Intent(this, OrderActivity.class);
-		Diner d = (Diner) spDiners.getSelectedItem();
-		intent.putExtra("order", d.getOrder());
 
-		this.startActivityForResult(intent, TAKE_ORDER);
+		if (spDiners.getSelectedItem() != null) {
+			Intent intent = new Intent(this, OrderActivity.class);
+			Diner d = (Diner) spDiners.getSelectedItem();
+			intent.putExtra("order", d.getOrder());
+
+			this.startActivityForResult(intent, TAKE_ORDER);
+		}
+		else
+			Toast.makeText(getApplicationContext(),"No Diners On Table!",Toast.LENGTH_LONG).show(); 
 
 	}
 
@@ -255,11 +256,9 @@ public class TableActivity extends ActionBarActivity {
 				d.setOrder(order);
 				refreshDinersOrder();
 			}
-		
+
+		}
 	}
-	} 
-
-
 
 	// dialog for making sure user wants to delete diner
 	protected Dialog onCreateDialog(int id) {

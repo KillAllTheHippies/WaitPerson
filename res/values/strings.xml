@@ -22,5 +22,8 @@
     <string android:id="@+id/string1" name="alert_dialog_cancel" android:layout_width="wrap_content" android:layout_height="wrap_content">Cancel</string>
     <string android:id="@+id/string1" name="clear_table" android:layout_width="wrap_content" android:layout_height="wrap_content">Clear Table</string>
     <string name="title_activity_view_tables">Available Tables</string>
+    <string name="title_activity_add_tables">Add Tables</string>
+    <string name="title_activity_edit_tables">Overwrite Tables</string>
+    <string name="view_available_tables">View Available Tables</string>
 
 </resources>
