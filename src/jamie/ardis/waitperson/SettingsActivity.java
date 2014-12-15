@@ -6,7 +6,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -16,7 +18,10 @@ import android.widget.TextView;
 
 public class SettingsActivity extends ActionBarActivity {
 
-	ArrayList<Table> tables = new ArrayList<Table>();
+	ArrayList<Table> tables;
+
+	private static final int FRAGMENT_RESULT = 10;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,42 +29,42 @@ public class SettingsActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_settings);
 		
 
-		 GridView gridview = (GridView) findViewById(R.id.gridview);
-	     gridview.setAdapter(new ImageAdapter(this));
+//		 GridView gridview = (GridView) findViewById(R.id.menuGrid);
+//	     gridview.setAdapter(new ImageAdapter(this));
 		
-		ArrayList<Table> tables = readTables();
+		tables = readTables();
 
-		// String filename = "diners.ser";
-		// // save the object to file
-		// FileOutputStream fos = null;
-		//
-		// ObjectOutputStream out = null;
-		// try {
-		//
-		// fos = openFileOutput(filename, Context.MODE_PRIVATE);
-		// out = new ObjectOutputStream(fos);
-		// out.writeObject(d);
-		// d = new Diner(3);
-		// out.close();
-		// fos.close();
-		// } catch (Exception ex) {
-		// ex.printStackTrace();
-		// }
-		// // read the object from file
-		// // save the object to file
-		// FileInputStream fis = null;
-		// ObjectInputStream in = null;
-		// try {
-		//
-		// fis = openFileInput(filename);
-		// in = new ObjectInputStream(fis);
-		// d = (Diner) in.readObject();
-		// in.close();
-		// } catch (Exception ex) {
-		// ex.printStackTrace();
-		// }
 		
 	}
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, requestCode, data);
+		// Check which request we're responding to
+		if (requestCode == FRAGMENT_RESULT) {
+			// Make sure the request was successful
+			if (resultCode == RESULT_OK) {
+
+				
+				
+				//get the table from the previous intent
+				Table selectedTable = (Table) data.getSerializableExtra("table");
+				// read the tables from the file
+				//tables = readTables();
+						
+				//add the table to the arraylist
+				tables.set(MainActivity.tableIndex, selectedTable);
+				// commit the arraylist of tables to disk
+				writeTables(tables);
+				Intent returnIntent = new Intent();
+				returnIntent.putExtra("table", selectedTable);
+
+				setResult(Activity.RESULT_OK, returnIntent);
+				finish();
+				
+				
+			}
+		}
+	}
+
 
 	public ArrayList<Table> readTables() {
 
@@ -71,7 +76,7 @@ public class SettingsActivity extends ActionBarActivity {
 		try {
 			fis = openFileInput(filename);
 			in = new ObjectInputStream(fis);
-			ArrayList<Table> tables = (ArrayList<Table>) in.readObject();
+			tables = (ArrayList<Table>) in.readObject();
 			in.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();

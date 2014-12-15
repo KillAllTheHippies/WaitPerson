@@ -33,6 +33,8 @@ public class TableActivity extends ActionBarActivity {
 	private Order order = new Order();
 	private Table table;
 	private static final int MY_DIALOG_ID = 2;
+	private static final int TAKE_ORDER = 3;
+	private static final int FRAGMENT_RESULT = 10;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +70,26 @@ public class TableActivity extends ActionBarActivity {
 
 	}
 	@Override
+	protected void onStart() {
+		super.onStart();
+		refreshDinersOrder();
+	}
+	@Override
 	public void onBackPressed() {
 	    returnInfo(getCurrentFocus());
+	}
+	public void returnInfo(View v) {
+		// test code
+		// order.addItem(new OrderItem("Coffee", 2.50));
+		// order.addItem(new OrderItem("Cake", 2.99));
+		// order.addItem(new OrderItem("Pigs Head", 15.99));
+
+		Intent returnIntent = new Intent();
+		returnIntent.putExtra("table", table);
+
+		setResult(Activity.RESULT_OK, returnIntent);
+		finish();
+
 	}
 
 	public void refreshDinersOrder() {
@@ -96,11 +116,7 @@ public class TableActivity extends ActionBarActivity {
 				+ table.getDiners().size());
 	}
 
-	@Override
-	protected void onStart() {
-		super.onStart();
-		refreshDinersOrder();
-	}
+	
 
 	public void removeDiner(View v) {
 		showDialog(MY_DIALOG_ID);
@@ -114,9 +130,7 @@ public class TableActivity extends ActionBarActivity {
 		refreshDinersOrder();
 	}
 
-	public void refreshTable() {
-
-	}
+	
 
 	public void launchOrderActivity(View v) {
 		Intent intent = new Intent(this, OrderActivity.class);
@@ -214,7 +228,7 @@ public class TableActivity extends ActionBarActivity {
 		Diner d = (Diner) spDiners.getSelectedItem();
 		intent.putExtra("order", d.getOrder());
 
-		this.startActivityForResult(intent, 666);
+		this.startActivityForResult(intent, TAKE_ORDER);
 
 	}
 
@@ -222,7 +236,7 @@ public class TableActivity extends ActionBarActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, requestCode, data);
 		// Check which request we're responding to
-		if (requestCode == 666) {
+		if (requestCode == TAKE_ORDER) {
 			// Make sure the request was successful
 			if (resultCode == RESULT_OK) {
 
@@ -232,23 +246,20 @@ public class TableActivity extends ActionBarActivity {
 				refreshDinersOrder();
 			}
 		}
+		if (requestCode == FRAGMENT_RESULT) {
+			// Make sure the request was successful
+			if (resultCode == RESULT_OK) {
+
+				order = (Order) data.getSerializableExtra("order");
+				Diner d = (Diner) spDiners.getSelectedItem();
+				d.setOrder(order);
+				refreshDinersOrder();
+			}
+		
 	}
+	} 
 
-	public void returnInfo(View v) {
-		// test code
-		// order.addItem(new OrderItem("Coffee", 2.50));
-		// order.addItem(new OrderItem("Cake", 2.99));
-		// order.addItem(new OrderItem("Pigs Head", 15.99));
 
-		Intent returnIntent = new Intent();
-		// returnIntent.putExtra("diners", diners);
-		// table.setDiners(diners);
-		returnIntent.putExtra("table", table);
-
-		setResult(Activity.RESULT_OK, returnIntent);
-		finish();
-
-	}
 
 	// dialog for making sure user wants to delete diner
 	protected Dialog onCreateDialog(int id) {

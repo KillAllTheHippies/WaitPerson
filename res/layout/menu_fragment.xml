@@ -7,15 +7,14 @@
 
     <GridView
         android:id="@+id/menuGrid"
-        android:numColumns="auto_fit"
-    android:gravity="center"
-    android:columnWidth="100dp"
-    android:stretchMode="columnWidth"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:padding="5dp" >
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:columnWidth="75dp"
         
+        android:gravity="center"
+        android:numColumns="auto_fit"
+        android:padding="5dp"
+        android:stretchMode="columnWidth" >
     </GridView>
 
-   
 </LinearLayout>

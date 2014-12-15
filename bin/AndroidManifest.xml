@@ -34,6 +34,10 @@
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
+        <activity
+            android:name=".ViewTablesActivity"
+            android:label="@string/title_activity_view_tables" >
+        </activity>
     </application>
 
 </manifest>

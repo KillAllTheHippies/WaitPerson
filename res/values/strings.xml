@@ -17,9 +17,10 @@
     <string name="finalise_order">Finalise Order</string>
     <string name="back">Back</string>
     <string name="remove_diner">Remove Diner</string>
-    <string android:id="@+id/string1" android:layout_width="wrap_content" android:layout_height="wrap_content" name="dialog_title">Warning</string>
-    <string android:id="@+id/string1" android:layout_width="wrap_content" android:layout_height="wrap_content" name="alert_dialog_ok">OK</string>
-    <string android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/string1" name="alert_dialog_cancel">Cancel</string>
-    <string android:layout_width="wrap_content" android:id="@+id/string1" android:layout_height="wrap_content" name="clear_table">Clear Table</string>
+    <string android:id="@+id/string1" name="dialog_title" android:layout_width="wrap_content" android:layout_height="wrap_content">Warning</string>
+    <string android:id="@+id/string1" name="alert_dialog_ok" android:layout_width="wrap_content" android:layout_height="wrap_content">OK</string>
+    <string android:id="@+id/string1" name="alert_dialog_cancel" android:layout_width="wrap_content" android:layout_height="wrap_content">Cancel</string>
+    <string android:id="@+id/string1" name="clear_table" android:layout_width="wrap_content" android:layout_height="wrap_content">Clear Table</string>
+    <string name="title_activity_view_tables">Available Tables</string>
 
 </resources>

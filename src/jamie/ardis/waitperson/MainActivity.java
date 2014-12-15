@@ -1,9 +1,5 @@
 package jamie.ardis.waitperson;
 
-
-
-
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -23,35 +19,44 @@ import android.widget.ListView;
 
 public class MainActivity extends ActionBarActivity {
 
-	
 	ArrayList<Table> tables = new ArrayList<Table>();
 	ArrayAdapter<Table> adapter;
-	//Table table;
+	// Table table;
 	Table selectedTable;
 	ArrayList<Diner> diners;
 	private ListView lv;
-	private int tableIndex;
-	//TablesList list = new TablesList();
+	static int tableIndex;
+	private static final int LAUNCH_TABLEACTIVITY = 777;
+
+	// TablesList list = new TablesList();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+
+		// get the tables from the file
+		tables = readTables();
+		
 		lv = (ListView) findViewById(R.id.lvTables);
-		
-		for (int i = 0; i < 5; i++) {
-			Table t = new Table("" + (i+1));
-			tables.add(t);
-			
-		}
-		//writeTables(tables);
-		
+
+		// for (int i = 0; i < 5; i++) {
+		// Table t = new Table("" + (i+1));
+		// tables.add(t);
+		//
+		// }
+		// writeTables(tables);
 
 		TablesAdapter adapter = new TablesAdapter(this, tables);
 
-//		ArrayAdapter<Table> arrayAdapter = new ArrayAdapter<Table>(this,
-//				android.R.layout.simple_list_item_1, tables);
+		// ArrayAdapter<Table> arrayAdapter = new ArrayAdapter<Table>(this,
+		// android.R.layout.simple_list_item_1, tables);
 
 		lv.setAdapter(adapter);
 
@@ -61,67 +66,49 @@ public class MainActivity extends ActionBarActivity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
-				tables = readTables();
-				
-				//selectedTable = (Table) lv.getItemAtPosition(position);
+				// tables = readTables();
+
+				// selectedTable = (Table) lv.getItemAtPosition(position);
 				selectedTable = tables.get(position);
 				tableIndex = position;
-			
-				//launchTableActivity((Table)lv.getItemAtPosition(position));
+
+				// launchTableActivity((Table)lv.getItemAtPosition(position));
 				launchTableActivity(selectedTable);
-				
 
 			}
 
 		});
-	}
-	@Override
-	protected void onStart() {
-		super.onStart();
-		
-		
-		tables = readTables();
-		
-	}
-	
-	
-	public void launchSettingsActivity(View v)
-    {
-    	Intent intent = new Intent(this, SettingsActivity.class);
-    	//intent.putExtra("table", table.getTableNum());
-    	startActivity(intent);
-    }
-	
 
-	public void launchTableActivity(Table table)
-    {
-    	Intent intent = new Intent(this, TableActivity.class);
-    	intent.putExtra("table", table);
-    	startActivityForResult(intent,777);
-    	
-    }
+	}
+
+	public void launchSettingsActivity(View v) {
+		Intent intent = new Intent(this, SettingsActivity.class);
+		// intent.putExtra("table", table);
+		startActivityForResult(intent, LAUNCH_TABLEACTIVITY);
+	}
+
+	public void launchTableActivity(Table table) {
+		Intent intent = new Intent(this, TableActivity.class);
+		intent.putExtra("table", table);
+		startActivityForResult(intent, LAUNCH_TABLEACTIVITY);
+
+	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, requestCode, data);
 		// Check which request we're responding to
-		if (requestCode == 777) {
+		if (requestCode == LAUNCH_TABLEACTIVITY) {
 			// Make sure the request was successful
 			if (resultCode == RESULT_OK) {
 
-				
-				
-				//get the table from the previous intent
+				// get the table from the previous intent
 				selectedTable = (Table) data.getSerializableExtra("table");
-				//add the table to the arraylist
+				// add the table to the arraylist
 				tables.set(tableIndex, selectedTable);
 				// commit the arraylist of tables to disk
 				writeTables(tables);
-				
-				//tables.remove(tableIndex);
-				//tables.add(tableIndex, selectedTable);
-				//t.setDiners(diners);
-				//selectedTable = t;
-				
+
 			}
 		}
 	}
@@ -144,7 +131,7 @@ public class MainActivity extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	public ArrayList<Table> readTables() {
 
 		String filename = "tables.ser";
@@ -183,5 +170,4 @@ public class MainActivity extends ActionBarActivity {
 		}
 	}
 
-	
 }

@@ -1093,7 +1093,7 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f050016;
         public static final int action_menu_presenter=0x7f050017;
         public static final int action_mode_close_button=0x7f050024;
-        public static final int action_settings=0x7f050056;
+        public static final int action_settings=0x7f050057;
         public static final int activity_chooser_view_content=0x7f050025;
         public static final int always=0x7f05000b;
         public static final int beginning=0x7f050011;
@@ -1115,7 +1115,6 @@ containing a value of this type.
         public static final int end=0x7f050013;
         public static final int expand_activities_button=0x7f050026;
         public static final int expanded_menu=0x7f05002c;
-        public static final int gridview=0x7f050049;
         public static final int home=0x7f050014;
         public static final int homeAsUp=0x7f050005;
         public static final int icon=0x7f05002a;
@@ -1160,7 +1159,9 @@ containing a value of this type.
         public static final int split_action_bar=0x7f05001e;
         public static final int submit_area=0x7f050039;
         public static final int tabMode=0x7f050002;
+        public static final int tableFrag=0x7f050049;
         public static final int tableNum=0x7f050052;
+        public static final int tableNumber=0x7f050056;
         public static final int title=0x7f05002b;
         public static final int top_action_bar=0x7f050020;
         public static final int tvDinerDisplay=0x7f050040;
@@ -1230,12 +1231,14 @@ containing a value of this type.
         public static final int menu_fragment=0x7f03001f;
         public static final int menu_item_layout=0x7f030020;
         public static final int support_simple_spinner_dropdown_item=0x7f030021;
+        public static final int table_frag_layout=0x7f030022;
     }
     public static final class menu {
         public static final int main=0x7f0c0000;
         public static final int order=0x7f0c0001;
         public static final int settings=0x7f0c0002;
         public static final int table=0x7f0c0003;
+        public static final int view_tables=0x7f0c0004;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -1298,6 +1301,7 @@ containing a value of this type.
         public static final int title_activity_order=0x7f0a0016;
         public static final int title_activity_settings=0x7f0a0017;
         public static final int title_activity_table=0x7f0a0012;
+        public static final int title_activity_view_tables=0x7f0a0021;
     }
     public static final class style {
         /** 
