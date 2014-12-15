@@ -18,6 +18,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -26,6 +27,8 @@ public class OrderActivity extends ActionBarActivity {
 	Order order = new Order();
 	MenuItems menu = new MenuItems();
 	ArrayList<OrderItem> activeList;
+	ListView lvOrder2;
+	OrderListAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,23 +39,36 @@ public class OrderActivity extends ActionBarActivity {
 		order = (Order) getIntent().getSerializableExtra("order");
 		activeList = menu.getStarters();
 		final GridView menuGrid = (GridView) findViewById(R.id.menuGrid);
-
+		lvOrder2 = (ListView) findViewById(R.id.lvOrder2);
 		RadioButton rdbStarters = (RadioButton) findViewById(R.id.rdbStarters);
-		
-//		OnClickListener imageListener = new OnClickListener() {
-//		public void onClick(View v) {
-//			// put some functionality here for imagebutton
-//			order.addItem(new OrderItem("test",1.99));
-//
-//		}
-//	};
-//	imgBtn.setOnClickListener(imageListener);
-//	
-		
+
+		adapter = new OrderListAdapter(this, order.getItems());
+		lvOrder2.setAdapter(adapter);
+
+		lvOrder2.setClickable(true);
+		lvOrder2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1,
+					int position, long arg3) {
+				
+				// remove the order item from the order
+				order.removeItem(position);
+				// refresh the list of order items
+				adapter = new OrderListAdapter(getApplication(),
+						order.getItems());
+				lvOrder2.setAdapter(adapter);
+			}
+
+		});
+
+	
+
 		OnClickListener startersListener = new OnClickListener() {
 			public void onClick(View v) {
 				activeList = menu.getStarters();
-				menuGrid.setAdapter(new GridAdapter(getApplication(),activeList));
+				menuGrid.setAdapter(new GridAdapter(getApplication(),
+						activeList));
 
 			}
 		};
@@ -61,7 +77,8 @@ public class OrderActivity extends ActionBarActivity {
 		OnClickListener mainsListener = new OnClickListener() {
 			public void onClick(View v) {
 				activeList = menu.getMains();
-				menuGrid.setAdapter(new GridAdapter(getApplication(),activeList));
+				menuGrid.setAdapter(new GridAdapter(getApplication(),
+						activeList));
 
 			}
 		};
@@ -70,7 +87,8 @@ public class OrderActivity extends ActionBarActivity {
 		OnClickListener desertsListener = new OnClickListener() {
 			public void onClick(View v) {
 				activeList = menu.getDeserts();
-				menuGrid.setAdapter(new GridAdapter(getApplication(),activeList));
+				menuGrid.setAdapter(new GridAdapter(getApplication(),
+						activeList));
 
 			}
 		};
@@ -79,7 +97,8 @@ public class OrderActivity extends ActionBarActivity {
 		OnClickListener drinksListener = new OnClickListener() {
 			public void onClick(View v) {
 				activeList = menu.getDrinks();
-				menuGrid.setAdapter(new GridAdapter(getApplication(),activeList));
+				menuGrid.setAdapter(new GridAdapter(getApplication(),
+						activeList));
 
 			}
 		};
@@ -93,33 +112,32 @@ public class OrderActivity extends ActionBarActivity {
 				OrderItem item = (OrderItem) menuGrid
 						.getItemAtPosition(position);
 				order.addItem(item);
+				// refresh the list of order items
+				adapter = new OrderListAdapter(getApplication(),
+						order.getItems());
+				lvOrder2.setAdapter(adapter);
 			}
 		};
-		
-		menuGrid.setAdapter(new GridAdapter(this,activeList));
+
+		menuGrid.setAdapter(new GridAdapter(this, activeList));
 		menuGrid.setOnItemClickListener(mOnClickGridCell);
-		
-		
+
 		rdbStarters.setOnClickListener(startersListener);
 		rdbMains.setOnClickListener(mainsListener);
 		rdbDeserts.setOnClickListener(desertsListener);
 		rdbDrinks.setOnClickListener(drinksListener);
 
-//		 menuGrid.setOnItemClickListener(new
-//		 android.widget.AdapterView.OnItemClickListener() {
-//		 @Override
-//		 public void onItemClick(AdapterView<?> parent, View view,int
-//		 position, long id) {
-//		
-//		 OrderItem item = (OrderItem) menuGrid.getItemAtPosition(position);
-//		 order.addItem(item);
-//		
-//		 }
-//		 });
-
-		
-
-		
+		// menuGrid.setOnItemClickListener(new
+		// android.widget.AdapterView.OnItemClickListener() {
+		// @Override
+		// public void onItemClick(AdapterView<?> parent, View view,int
+		// position, long id) {
+		//
+		// OrderItem item = (OrderItem) menuGrid.getItemAtPosition(position);
+		// order.addItem(item);
+		//
+		// }
+		// });
 
 	}
 
@@ -185,6 +203,10 @@ public class OrderActivity extends ActionBarActivity {
 	// spDrinks.setAdapter(drinkAdapter);
 	// }
 
+	public void onBackPressed() {
+		returnInfo(getCurrentFocus());
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -216,11 +238,11 @@ public class OrderActivity extends ActionBarActivity {
 		 * @param items
 		 *            to fill data to
 		 */
-		public GridAdapter(Context context,final ArrayList<OrderItem> items) {
+		public GridAdapter(Context context, final ArrayList<OrderItem> items) {
 
 			mCount = items.size();
 			mItems = items;
-			mContext = context; 
+			mContext = context;
 
 		}
 

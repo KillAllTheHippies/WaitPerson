@@ -21,6 +21,11 @@ public class Order implements Serializable{
 	public ArrayList<OrderItem> getItems() {
 		return items;
 	}
+	public OrderItem getItem(int position)
+	{
+		OrderItem item = items.get(position);
+		return item;
+	}
 
 	public void setItems(ArrayList<OrderItem> items) {
 		this.items = items;

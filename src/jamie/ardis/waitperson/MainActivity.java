@@ -82,7 +82,7 @@ public class MainActivity extends ActionBarActivity {
 
 	}
 	
-	public void addTables()
+	public void addTables(View v)
 	{
 		Intent intent = new Intent(this, AddTablesActivity.class);
 		intent.putExtra("tables", tables);
@@ -95,8 +95,8 @@ public class MainActivity extends ActionBarActivity {
 		startActivity(intent);
 	}
 
-	public void launchSettingsActivity(View v) {
-		Intent intent = new Intent(this, SettingsActivity.class);
+	public void launchAvailableTablesActivity(View v) {
+		Intent intent = new Intent(this, AvailableTablesActivity.class);
 		
 		startActivityForResult(intent, LAUNCH_TABLEACTIVITY);
 	}
@@ -144,7 +144,7 @@ public class MainActivity extends ActionBarActivity {
           editTables(getCurrentFocus());  
         return true;     
        case R.id.item2:
-    	   addTables();
+    	   addTables(getCurrentFocus());
             Toast.makeText(getApplicationContext(),"Item 2 Selected",Toast.LENGTH_LONG).show();  
           return true;     
         case R.id.item3:  

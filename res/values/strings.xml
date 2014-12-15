@@ -25,5 +25,6 @@
     <string name="title_activity_add_tables">Add Tables</string>
     <string name="title_activity_edit_tables">Overwrite Tables</string>
     <string name="view_available_tables">View Available Tables</string>
+    <string name="title_activity_android_notification">AndroidNotification</string>
 
 </resources>

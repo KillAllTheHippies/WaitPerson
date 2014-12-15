@@ -16,7 +16,7 @@ import android.view.MenuItem;
 import android.widget.GridView;
 import android.widget.TextView;
 
-public class SettingsActivity extends ActionBarActivity {
+public class AvailableTablesActivity extends ActionBarActivity {
 
 	ArrayList<Table> tables;
 

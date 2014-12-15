@@ -15,11 +15,7 @@
         android:layout_height="wrap_content"
         android:text="@string/hello_world" />
 
-    <ListView
-        android:id="@+id/lvOrder"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
+   
 
     <RadioGroup
         android:id="@+id/radioGroup1"
@@ -70,5 +66,11 @@
         android:layout_height="wrap_content"
         android:onClick="returnInfo"
         android:text="@string/finalise_order" />
+    
+    <ListView
+        android:id="@+id/lvOrder2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
 
 </LinearLayout>
