@@ -60,7 +60,7 @@ public class AddTablesActivity extends Activity {
 			tvAddTables.setText("There are " + tables.size() + " tables");
 			writeTables(tables);
 			sendNotification();
-
+			finish();
 		}
 		
 
